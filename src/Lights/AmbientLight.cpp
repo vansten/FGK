@@ -1,12 +1,12 @@
 #include "AmbientLight.h"
 
 AmbientLight::AmbientLight() {
-    type = AMBIENT;
+    type = LightSourceType::AMBIENT;
     color = Color(1,1,1);
 }
 
 AmbientLight::AmbientLight(Color c) : color(c) {
-    type = AMBIENT;
+    type = LightSourceType::AMBIENT;
 }
 
 bool AmbientLight::IsInShadow(IntersectionResult*, QList<Geometry *>&) {

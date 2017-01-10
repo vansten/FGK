@@ -8,7 +8,7 @@
 typedef LightIntensity Color;
 class Scene;
 
-enum LightSourceType {
+enum class LightSourceType {
     POINT=0,
     DIRECTIONAL,
     AREA,

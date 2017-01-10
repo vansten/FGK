@@ -1,7 +1,7 @@
 #ifndef DISPLAYWINDOW_H
 #define DISPLAYWINDOW_H
 
-#include <QWidget>
+#include <QtWidgets/QWidget>
 #include <QtGui>
 #include <QTimer>
 #include "Image.h"

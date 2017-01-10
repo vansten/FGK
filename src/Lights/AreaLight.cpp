@@ -17,7 +17,7 @@ AreaLight::AreaLight(Vector3 center, Vector2 size, Color color, Vector3 attenuat
     this->center = center;
     this->size = size;
 
-    type = AREA;
+    type = LightSourceType::AREA;
 }
 
 

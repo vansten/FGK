@@ -9,7 +9,7 @@ PointLight::PointLight() : AmbientLight()
 {
     position.Zero();
     attenuation.One();
-    type = POINT;
+    type = LightSourceType::POINT;
     projectionMap=0;
 }
 
@@ -17,7 +17,7 @@ PointLight::PointLight(Vector3 position, Color color, Vector3 attenuation) : Amb
     this->position = position;
     this->color = color;
     this->attenuation = attenuation;
-    type = POINT;
+    type = LightSourceType::POINT;
     projectionMap=0;
 }
 

@@ -10,6 +10,8 @@
 #include "Geometry/MS3DModel.h"
 #include "Geometry/CornellBox.h"
 
+#include <QTWidgets/QMessageBox>
+
 MainWindow::MainWindow(QWidget *parent)
     : QWidget(parent)
     , m_rendererPanel(new RendererPanel(this))

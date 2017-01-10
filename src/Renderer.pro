@@ -6,7 +6,7 @@ TEMPLATE = app
 TARGET = 
 DEPENDPATH += .
 
-QT += gui
+QT += widgets
 # Input
 HEADERS += Math/Vector2.h \
            Math/Vector3.h \

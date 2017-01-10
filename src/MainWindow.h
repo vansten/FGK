@@ -1,7 +1,8 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <QWidget>
+#include <QtWidgets/QWidget>
+#include <QtWidgets/QPushButton>
 #include "DisplayWindow.h"
 #include "Lights/PointLight.h"
 

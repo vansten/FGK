@@ -1,8 +1,8 @@
 #include "rendereroptions.h"
 
-#include <QGridLayout>
-#include <QLabel>
-#include <QSpacerItem>
+#include <QtWidgets/QGridLayout>
+#include <QtWidgets/QLabel>
+#include <QtWidgets/QSpacerItem>
 
 // -----------------------------------------------------------------------------
 

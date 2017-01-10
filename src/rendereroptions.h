@@ -1,9 +1,9 @@
 #ifndef RENDEREROPTIONS_H
 #define RENDEREROPTIONS_H
 
-#include <QWidget>
-#include <QSpinBox>
-#include <QLabel>
+#include <QtWidgets/QWidget>
+#include <QtWidgets/QSpinBox>
+#include <QtWidgets/QLabel>
 
 // -----------------------------------------------------------------------------
 

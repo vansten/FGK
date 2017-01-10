@@ -1,11 +1,11 @@
 #ifndef RENDERERPANEL_H
 #define RENDERERPANEL_H
 
-#include <QWidget>
-#include <QStackedWidget>
-#include <QLayout>
-#include <QComboBox>
-#include <QLabel>
+#include <QtWidgets/QWidget>
+#include <QtWidgets/QStackedWidget>
+#include <QtWidgets/QLayout>
+#include <QtWidgets/QComboBox>
+#include <QtWidgets/QLabel>
 
 #include "rendereroptions.h"
 

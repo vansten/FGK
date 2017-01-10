@@ -24,7 +24,7 @@ void StreamPhotonMap::GeneratePhotonMap(Scene *scene, int numPhotons, int maxRef
     int numPointLights=0;
     //count how much points lights are in scene
     for(int i=0;i<scene->lights.count();i++) {
-        if(scene->lights.at(i)->type==POINT || scene->lights.at(i)->type == AREA) {
+        if(scene->lights.at(i)->type==LightSourceType::POINT || scene->lights.at(i)->type == LightSourceType::AREA) {
             numPointLights++;
             if(caustic) {
                 //if we generate caustic map, we must generate first projection map for each light
@@ -39,7 +39,7 @@ void StreamPhotonMap::GeneratePhotonMap(Scene *scene, int numPhotons, int maxRef
     numPhotons/=numPointLights;
 
     for(int i=0;i<scene->lights.count();i++) {
-        if(scene->lights.at(i)->type==POINT || scene->lights.at(i)->type==AREA)
+        if(scene->lights.at(i)->type==LightSourceType::POINT || scene->lights.at(i)->type==LightSourceType::AREA)
             //generate photons for each light in scene
 
             qDebug()<<"emituje fotony dla zrodla";
@@ -93,7 +93,7 @@ void StreamPhotonMap::GeneratePhotons(AmbientLight *light, QList<Geometry*>* geo
     //przeskaluj energie kazdego fotonu przez liczbe zapisanych do mapy fotonow
     float scale;
     if(caustic) {
-        if(light->type == POINT || light->type == AREA)
+        if(light->type == LightSourceType::POINT || light->type == LightSourceType::AREA)
             scale = (1.0f/tempPhotons.count())*light->GetProjectionMapRatio();
     }
     else
