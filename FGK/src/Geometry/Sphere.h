@@ -21,8 +21,10 @@ public:
 
     IntersectionResult Intersects(const Ray& ray, float range=0.0f) const;
     Vector3 MapToLocal(Vector3 &vec) const;
+	inline std::string ToString() const
+	{
+		return "Position: " + position.ToString() + ", radius: " + std::to_string(radius);
+	}
 };
-
-//QDebug operator<<(QDebug dbg, const Sphere &s);
 
 #endif // SPHERE_H

@@ -2,14 +2,14 @@
 #define SCRIPTMANAGER_H
 
 extern "C" {
-    #include <Scripts/lua/lua.h>
-    #include <Scripts/lua/lualib.h>
-    #include <Scripts/lua/lauxlib.h>
+    #include "lua/lua.h"
+    #include "lua/lualib.h"
+    #include "lua/lauxlib.h"
 }
 
-#include <Scripts/luabind/luabind.hpp>
-#include <Scripts/luabind/operator.hpp>
-#include <Scripts/luabind/adopt_policy.hpp>
+#include "luabind/luabind.hpp"
+#include "luabind/operator.hpp"
+#include "luabind/adopt_policy.hpp"
 
 class ScriptManager
 {

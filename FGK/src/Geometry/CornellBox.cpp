@@ -23,57 +23,57 @@ CornellBox::CornellBox(Vector3 pos, Vector3 size) {
     //right
     t = new Triangle(vertices[2], vertices[1], vertices[0]);
     t->SetMaterial(blueWallMaterial);
-    //walls.append(t);
+	walls.push_back(t);
 
     t = new Triangle(vertices[0], vertices[3], vertices[2]);
     t->SetMaterial(blueWallMaterial);
-    //walls.append(t);
+	walls.push_back(t);
 
     //left
     t = new Triangle(vertices[4], vertices[5], vertices[6]);
     t->SetMaterial(redWallMaterial);
-    //walls.append(t);
+	walls.push_back(t);
 
     t = new Triangle(vertices[6], vertices[7], vertices[4]);
     t->SetMaterial(redWallMaterial);
-    //walls.append(t);
+	walls.push_back(t);
 
 
     //floor
     t = new Triangle(vertices[1], vertices[2], vertices[6]);
     t->SetMaterial(whiteWallMaterial);
-    //walls.append(t);
+	walls.push_back(t);
 
     t = new Triangle(vertices[6], vertices[5], vertices[1]);
     t->SetMaterial(whiteWallMaterial);
-    //walls.append(t);
+	walls.push_back(t);
 
     //roof
     t = new Triangle(vertices[0], vertices[4], vertices[7]);
     t->SetMaterial(whiteWallMaterial);
-    //walls.append(t);
+	walls.push_back(t);
 
     t = new Triangle(vertices[7], vertices[3], vertices[0]);
     t->SetMaterial(whiteWallMaterial);
-    //walls.append(t);
+	walls.push_back(t);
 
     //back
     t = new Triangle(vertices[5], vertices[4], vertices[0]);
     t->SetMaterial(whiteWallMaterial);
-    //walls.append(t);
+	walls.push_back(t);
 
     t = new Triangle(vertices[0], vertices[1], vertices[5]);
     t->SetMaterial(whiteWallMaterial);
-    //walls.append(t);
+	walls.push_back(t);
 
     //front
     t = new Triangle(vertices[2], vertices[3], vertices[7]);
     t->SetMaterial(whiteWallMaterial);
-    //walls.append(t);
+	walls.push_back(t);
 
     t = new Triangle(vertices[7], vertices[6], vertices[2]);
     t->SetMaterial(whiteWallMaterial);
-    //walls.append(t);
+	walls.push_back(t);
 
 }
 
@@ -81,13 +81,15 @@ IntersectionResult CornellBox::Intersects(const Ray &ray, float range) const {
     IntersectionResult closest;
     float closestDist = FLT_MAX;
 
-    //for(int i=0;i<walls.count();i++) {
-    //    IntersectionResult ir = walls.at(i)->Intersects(ray, range);
-    //    if(ir.type!=MISS && ir.distance < closestDist) {
-    //        closest = ir;
-    //        closestDist = ir.distance;
-    //    }
-    //}
+	auto it = walls.begin();
+	auto end = walls.end();
+	for(it; it != end; ++it) {
+        IntersectionResult ir = (*it)->Intersects(ray, range);
+        if(ir.type!=MISS && ir.distance < closestDist) {
+            closest = ir;
+            closestDist = ir.distance;
+        }
+    }
     return closest;
 }
 
@@ -95,10 +97,12 @@ CornellBox::~CornellBox() {
     delete redWallMaterial;
     delete greenWallMaterial;
     delete whiteWallMaterial;
-
-    //for(int i=0;i<walls.count();i++) {
-    //    delete walls.at(i);
-    //}
-	//
-    //walls.clear();
+	auto it = walls.begin();
+	auto end = walls.end();
+	for(it; it != end; ++it)
+	{
+        delete (*it);
+    }
+	
+    walls.clear();
 }

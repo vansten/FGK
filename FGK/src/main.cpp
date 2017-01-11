@@ -1,3 +1,6 @@
+#include <ctime>
+#include <functional>
+
 #include "MainWindow.h"
 #include "Math/Vector2.h"
 #include "Math/Vector3.h"
@@ -19,6 +22,7 @@
 
 int main(int argc, char *argv[])
 {
+	srand(time(NULL));
    //QApplication a(argc, argv);
    //
    //MainWindow window;
@@ -26,6 +30,9 @@ int main(int argc, char *argv[])
    //
    //return a.exec();
 
-	return EXIT_SUCCESS;
+#ifdef _DEBUG
+	_CrtDumpMemoryLeaks();
+#endif
+	return 0;
 }
 

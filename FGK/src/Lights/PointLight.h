@@ -14,7 +14,7 @@ public:
     PointLight(Vector3 position, Color color, Vector3 attenuation);
     ~PointLight();
 
-    //LightIntensity GetLightIntensity(Vector3 cameraPosition, IntersectionResult *ir,QList<Geometry *> &geometry );
+    LightIntensity GetLightIntensity(Vector3 cameraPosition, IntersectionResult *ir, std::list<Geometry*> &geometry);
 
     /**
       Gets position of light
@@ -27,7 +27,7 @@ public:
     float GetProjectionMapRatio() const;
 
 protected:
-    //bool IsInShadow(IntersectionResult *ir, QList<Geometry *> &geometry);
+    virtual bool IsInShadow(IntersectionResult *ir, std::list<Geometry *> &geometry);
 
 private:
     Vector3 position;

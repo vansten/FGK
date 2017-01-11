@@ -27,7 +27,7 @@ public:
 
     void SetPixel(unsigned x, unsigned y, Color color);
 
-    //void SaveToFile(QString filename);
+    void SaveToFile(const char* filename);
 
     float GetWhiteToBlackPixelRatio() const;
 

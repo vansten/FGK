@@ -111,8 +111,3 @@ Vector2 Vector2::operator-(void) const {
 Vector2 Vector2::operator+(void) const {
     return *this;
 }
-
-//QDebug operator<<(QDebug dbg, const Vector2 &v) {
-//    dbg.nospace() << "(" << v.x << ", " << v.y << ")";
-//    return dbg.space();
-//}

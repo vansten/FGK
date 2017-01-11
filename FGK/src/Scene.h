@@ -1,8 +1,8 @@
 #ifndef SCENE_H
 #define SCENE_H
+#include <list>
 #include "Lights/AmbientLight.h"
 #include "Geometry/Geometry.h"
-
 
 /**
   Represents scene that we want to render.
@@ -18,18 +18,18 @@ public:
       Adds geometry to scene
       */
     void AddGeometry(Geometry*g) {
-        //geometry.append(g);
+		geometry.push_back(g);
     }
 
     /**
       Adds light to scene
       */
     void AddLight(AmbientLight* l) {
-        //lights.append(l);
+		lights.push_back(l);
     }
 
-    //QList<Geometry*> geometry;
-    //QList<AmbientLight*> lights;
+	std::list<Geometry*> geometry;
+	std::list<AmbientLight*> lights;
 };
 
 #endif // SCENE_H

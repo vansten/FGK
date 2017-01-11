@@ -1,6 +1,7 @@
 #ifndef BOX_H
 #define BOX_H
 
+#include <list>
 #include "Geometry.h"
 #include "Triangle.h"
 #include "../Material.h"
@@ -21,7 +22,7 @@ public:
     void SetMaterial(Material *m);
 
 private:
-    //QList<Triangle*> walls;
+    std::list<Triangle*> walls;
 };
 
 #endif // BOX_H

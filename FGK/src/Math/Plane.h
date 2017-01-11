@@ -62,6 +62,4 @@ public:
     IntersectionResult Intersects(const Ray& ray, float range=0.0f) const;
 };
 
-
-
 #endif

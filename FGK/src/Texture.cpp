@@ -64,9 +64,9 @@ void Texture::SetPixel(unsigned x, unsigned y, Color color) {
     //image->setPixel(x,y, qRgb(color.r*255, color.g*255, color.b*255));
 }
 
-//void Texture::SaveToFile(QString filename) {
-//    image->save(filename);
-//}
+void Texture::SaveToFile(const char*  filename) {
+    //image->save(filename);
+}
 
 
 float Texture::GetWhiteToBlackPixelRatio() const {

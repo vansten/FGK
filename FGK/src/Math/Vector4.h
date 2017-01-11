@@ -1,7 +1,7 @@
 #ifndef __VECTOR4_H__
 #define __VECTOR4_H__
+
 #include "Vector3.h"
-//#include <QDebug>
 
 class Vector4
 {
@@ -25,6 +25,11 @@ public:
     Vector4(const Vector3 &vec, float _w):x(vec.x), y(vec.y), z(vec.z), w(_w){}
 
     ~Vector4() {}
+
+	inline std::string ToString() const
+	{
+		return "[" + std::to_string(x) + ", " + std::to_string(y) + ", " + std::to_string(z) + ", " + std::to_string(w) + "]";
+	}
 
     inline void Set(float newX, float newY, float newZ, float newW) {
         x=newX;
@@ -105,7 +110,5 @@ public:
     void RotateAxis(double angle, const Vector3 &axis);
     Vector4 GetRotatedAxis(double angle, const Vector3 &axis) const;
 };
-
-//QDebug operator<<(QDebug dbg, const Vector4 &v);
 
 #endif

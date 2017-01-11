@@ -8,11 +8,11 @@ AreaLight::AreaLight(Vector3 center, Vector2 size, Color color, Vector3 attenuat
     for(int y=-density/2;y<=density/2;y++) {
         for(int x=-density/2;x<=density/2;x++) {
             PointLight* p = new PointLight(center+Vector3(x*stepX, 0, y*stepY), color/(density*density), attenuation);
-            //lights.push_back(p);
+            lights.push_back(p);
         }
     }
     //qDebug()<<"liczba swiatel punktowych dla swiatla powierzchniowego"<<lights.count();
-    //inShadows.resize(lights.count());
+	inShadows.resize(lights.size());
 
     this->center = center;
     this->size = size;
@@ -22,53 +22,56 @@ AreaLight::AreaLight(Vector3 center, Vector2 size, Color color, Vector3 attenuat
 
 
 AreaLight::~AreaLight() {
-    //for(int i=0;i<lights.count();i++)
-    //    delete lights[i];
-    //lights.clear();
-    //inShadows.clear();
+	auto it = lights.begin();
+	auto end = lights.end();
+    for(it; it != end; ++it)
+        delete (*it);
+    lights.clear();
+    inShadows.clear();
 }
 
-//bool AreaLight::IsInShadow(IntersectionResult *ir, QList<Geometry *> &geometry) {
-//    return false;
-//}
+bool AreaLight::IsInShadow(IntersectionResult *ir, std::list<Geometry *> &geometry) {
+    return false;
+}
 
-//LightIntensity AreaLight::GetLightIntensity(Vector3 cameraPosition,
-//                                            IntersectionResult *ir,
-//                                            QList<Geometry *> &geometry) {
-//    LightIntensity result;
-//    for(int i=0;i<lights.count();i++) {
-//        //if(!inShadows.at(i))
-//        result+=lights.at(i)->GetLightIntensity(cameraPosition, ir, geometry);
-//    }
-//    return result;///lights.count();
-//}
+LightIntensity AreaLight::GetLightIntensity(Vector3 cameraPosition, IntersectionResult *ir, std::list<Geometry *> &geometry) {
+    LightIntensity result;
+	unsigned int size = lights.size();
+	for(unsigned int i = 0; i < size; ++i)
+	{
+		if(!inShadows.at(i))
+        result+=lights.at(i)->GetLightIntensity(cameraPosition, ir, geometry);
+    }
+    return result;///lights.count();
+}
 
 Ray AreaLight::GetPhoton(bool useProjectionMap) const {
 
-    //int i = qrand()%lights.count();
-	//
-    //Ray r = lights.at(i)->GetPhoton(useProjectionMap);
-	//
-    //if(r.direction.DotProduct(Vector3(0,-1,0))<0) {
-    //    r = Ray(r.origin, -r.direction);
-    //}
-	//
-    //return r;
-	return Ray();
+    int i = rand()%lights.size();
+	
+    Ray r = lights.at(i)->GetPhoton(useProjectionMap);
+	
+    if(r.direction.DotProduct(Vector3(0,-1,0))<0) {
+        r = Ray(r.origin, -r.direction);
+    }
+	
+    return r;
 }
 
 void AreaLight::CreateProjectionMap(const Scene* scene) {
-    //for(int i=0;i<lights.count();i++) {
-    //    //qDebug()<<i;
-    //    lights.at(i)->CreateProjectionMap(scene);
-    //}
+	unsigned int size = lights.size();
+	for(unsigned int i = 0; i < size; ++i)
+	{
+        //qDebug()<<i;
+        lights.at(i)->CreateProjectionMap(scene);
+    }
 }
 
 float AreaLight::GetProjectionMapRatio() const {
-    //float avg=0;
-    //for(int i=0;i<lights.count();i++)
-    //    avg += lights.at(i)->GetProjectionMapRatio();
-	//
-    //return avg/lights.count();
-	return 1.0f;
+    float avg=0;
+	unsigned int size = lights.size();
+	for(unsigned int i = 0; i < size; ++i)
+        avg += lights.at(i)->GetProjectionMapRatio();
+	
+    return avg/size;
 }

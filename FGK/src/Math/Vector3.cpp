@@ -17,7 +17,6 @@ void Vector3::Normalize() {
     }
 }
 
-
 Vector3 Vector3::GetNormalized() const {
     Vector3 result(*this);
 
@@ -41,7 +40,6 @@ Vector3 Vector3::CrossProduct(const Vector3 &vec) const {
 	
     return result;
 }
-
 
 Vector3 Vector3::Lerp(const Vector3 &v2, float factor) const {
     return (*this)*(1.0f-factor) + v2*factor;
@@ -237,9 +235,3 @@ Vector3 Vector3::Refract(const Vector3 &normal, float eta) const {
 Vector3 operator*(float scaleFactor, const Vector3 &vec) {
     return vec*scaleFactor;
 }
-
-//QDebug operator<<(QDebug dbg, const Vector3 &v) {
-//    dbg.nospace() << "(" << v.x << ", " << v.y << ", " << v.z << ")";
-//    return dbg.space();
-//}
-

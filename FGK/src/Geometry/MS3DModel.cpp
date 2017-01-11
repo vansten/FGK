@@ -1,10 +1,8 @@
 #include <cstdio>
 #include "MS3DModel.h"
 #include <string.h>
-//#include <QDebug>
 #include "Triangle.h"
 #include "Box.h"
-#define PI 3.14156
 #include <cfloat>
 
 MS3DModel::MS3DModel()
@@ -70,7 +68,6 @@ void MS3DModel::Load(const char* filename)
 	float tempFloat;
 	int tempInt;
 	char tempString[40];
-	//pf = fopen(filename, "rb");
 	fopen_s(&pf, filename, "rb");
 	
 	if(!pf)

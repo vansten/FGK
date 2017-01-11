@@ -133,8 +133,3 @@ Vector4 Vector4::GetRotatedAxis(double angle, const Vector3 & axis) const {
 
     return Vector4(v3d.x, v3d.y, v3d.z, w);
 }
-
-//QDebug operator<<(QDebug dbg, const Vector4 &v) {
-//    dbg.nospace() << "(" << v.x << ", " << v.y << ", " << v.z << ", " << v.w << ")";
-//    return dbg.space();
-//}

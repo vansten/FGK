@@ -1,10 +1,10 @@
 #ifndef CAMERA_H
 #define CAMERA_H
+#include <string>
 #include "Math/Vector3.h"
 #include "Math/Matrix4x4.h"
 #include "Math/Ray.h"
 #include "Image.h"
-//#include <QList>
 #include "Scene.h"
 #include "RayTracer.h"
 
@@ -120,9 +120,9 @@ public:
     void VisualizePhotonMap(Scene* scene, int numPhotons, int maxReflections);
     void VisualizeStreamPhotonMap(Scene* scene, int numPhotons, int maxReflections, int numAssociatedPhotons, float radius);
 
-    //void SetResultFileName(const char* filename) {
-    //    renderFileName = QString(filename);
-    //}
+    void SetResultFileName(const char* filename) {
+        renderFileName = std::string(filename);
+    }
 
     void SetPhotonMappingParams(float globalMapRadius, int globalMapNumPhotons,
                                 float causticMapRadius, int causticMapNumPhotons) {
@@ -152,7 +152,7 @@ private:
 
     void Recalculate();
 
-    //QString renderFileName;
+    std::string renderFileName;
 
     int m_renderingTime;
 };

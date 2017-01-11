@@ -2,7 +2,6 @@
 #define RAY_H
 
 #include "Vector3.h"
-//#include <QDebug>
 class Geometry;
 
 class Ray
@@ -13,6 +12,11 @@ public:
 
     Ray(void);
     Ray(const Vector3& orig, const Vector3& dir);    
+
+	inline std::string ToString() const
+	{
+		return "Origin: " + origin.ToString() + ", direction: " + direction.ToString();
+	}
 };
 
 enum IntersectionType {
@@ -32,6 +36,23 @@ struct IntersectionResult {
                        Vector3 n,
                        float dist) : type(t), point(p),
                                      intersectionPointNormal(n), distance(dist) {}
+
+	inline std::string ToString() const
+	{
+		if(type == MISS)
+		{
+			return "No intersection";
+		}
+		else if(type==HIT)
+		{
+			return "Intersection at point: " + point.ToString() + ", distance" + std::to_string(distance) + ", normal: " + intersectionPointNormal.ToString();
+		}
+		else 
+		{
+			return "Intersection at point: " + point.ToString() + ", distance" + std::to_string(distance) + ", normal: " + intersectionPointNormal.ToString();
+		}
+	}
+
     IntersectionType type;
     Vector3 point;
     Vector3 intersectionPointNormal;
@@ -39,8 +60,5 @@ struct IntersectionResult {
     const Geometry* object;
 };
 
-
-//QDebug operator<<(QDebug dbg, const Ray &r);
-//QDebug operator<<(QDebug dbg, const IntersectionResult &ir);
 
 #endif // RAY_H

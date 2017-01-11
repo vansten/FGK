@@ -1,5 +1,6 @@
 #ifndef AMBIENTLIGHT_H
 #define AMBIENTLIGHT_H
+#include <list>
 #include "../LightIntensity.h"
 #include "../Math/Vector3.h"
 #include "../Math/Ray.h"
@@ -34,7 +35,7 @@ public:
     /**
       Get light intensity for given intersection point and camera
      */
-    //virtual LightIntensity GetLightIntensity(Vector3 cameraPosition, IntersectionResult* ir, QList<Geometry*>& geometry);
+    virtual LightIntensity GetLightIntensity(Vector3 cameraPosition, IntersectionResult* ir, std::list<Geometry*>& geometry);
     /**
       Generates photon from light (only from point and area lights)
       */
@@ -47,7 +48,7 @@ public:
 
 protected:
     //checks if intersection point is in shadow by this light.
-    //virtual bool IsInShadow(IntersectionResult* ir, QList<Geometry*>& geometry);
+    virtual bool IsInShadow(IntersectionResult* ir, std::list<Geometry*>& geometry);
 };
 
 #endif // AMBIENTLIGHT_H

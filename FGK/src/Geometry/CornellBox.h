@@ -1,5 +1,6 @@
 #ifndef CORNELLBOX_H
 #define CORNELLBOX_H
+#include <list>
 #include "Geometry.h"
 #include "Triangle.h"
 #include "../Material.h"
@@ -18,8 +19,8 @@ public:
 
     IntersectionResult Intersects(const Ray &ray, float range) const;
     void deleteFrontWall() {
-        //walls.removeLast();
-        //walls.removeLast();
+		walls.pop_back();
+		walls.pop_back();
     }
 
 private:
@@ -28,7 +29,7 @@ private:
     Material* whiteWallMaterial;
     Material* blueWallMaterial;
 
-    //QList<Triangle*> walls;
+    std::list<Triangle*> walls;
 };
 
 #endif // CORNELLBOX_H

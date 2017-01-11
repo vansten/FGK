@@ -1,3 +1,6 @@
+#define _USE_MATH_DEFINES
+#include <cmath>
+
 #include "PointLight.h"
 #include <algorithm>
 #include <cfloat>
@@ -28,61 +31,63 @@ PointLight::~PointLight() {
     }
 }
 
-//bool PointLight::IsInShadow(IntersectionResult *ir, QList<Geometry *> &geometry) {
-//    //chec if ray from light to intersection point intersects some geometry
-//    Ray lightToPoint(position, ir->point-position);
-//    float dist = (position-ir->point).GetLength() - 0.001;
-//
-//    for(int i=0;i<geometry.count();i++) {
-//        IntersectionResult intersect = geometry.at(i)->Intersects(lightToPoint);
-//        if(intersect.type==HIT && intersect.distance<dist && intersect.object!=ir->object)
-//            return true;
-//    }
-//
-//    return false;
-//}
+bool PointLight::IsInShadow(IntersectionResult *ir, std::list<Geometry*> &geometry) {
+    //chec if ray from light to intersection point intersects some geometry
+    Ray lightToPoint(position, ir->point-position);
+    float dist = (position-ir->point).GetLength() - 0.001;
+
+	auto iterator = geometry.begin();
+	auto end = geometry.end();
+	for(iterator; iterator != end; ++iterator)
+	{
+		IntersectionResult intersect = (*iterator)->Intersects(lightToPoint);
+	    if(intersect.type==HIT && intersect.distance<dist && intersect.object!=ir->object)
+            return true;
+    }
+
+    return false;
+}
 
 Vector3 PointLight::GetPosition() const {
     return position;
 }
 
-//LightIntensity PointLight::GetLightIntensity(Vector3 cameraPosition, IntersectionResult *ir,
-//                                             QList<Geometry *> &geometry) {
-//    LightIntensity result(0,0,0);
-//
-//    if(IsInShadow(ir, geometry)){ //commenting this disable sharp shadows (hence know geometry blocking is being checked)
-//        LightIntensity shadow(0.0,0.0,0.0);
-//        return shadow;
-//    }
-//
-//    Vector3 normal = ir->intersectionPointNormal;
-//    Vector3 light(position - ir->point);
-//
-//    float lightDistance = light.GetLength();
-//    normal.Normalize();
-//    light.Normalize();
-//
-//    Material* mat = ir->object->GetMaterial();
-//    //if geometry has diffuse material calculate phong lighting
-//    if(mat->type==DIFFUSE) {
-//        DiffuseMaterial* diffMat = (DiffuseMaterial*)mat;
-//        float diffuseFactor = normal.DotProduct(light);
-//
-//        if(diffuseFactor > 0.0f) {
-//            float specPower = diffMat->specularCoeff;
-//            Vector3 eye = cameraPosition - ir->point;
-//            eye.Normalize();
-//            Vector3 reflected = (-light).Reflect(normal);
-//            float specFactor = pow(max(reflected.DotProduct(eye), 0.0f), specPower);
-//
-//            result += diffMat->diffuse*color*diffuseFactor;
-//            result += diffMat->specular*color*specFactor;
-//        }
-//        result /= (attenuation.x+attenuation.y*lightDistance+attenuation.z*lightDistance*lightDistance);
-//    }
-//
-//    return result;
-//}
+LightIntensity PointLight::GetLightIntensity(Vector3 cameraPosition, IntersectionResult *ir, std::list<Geometry *> &geometry) {
+    LightIntensity result(0,0,0);
+
+    if(IsInShadow(ir, geometry)){ //commenting this disable sharp shadows (hence know geometry blocking is being checked)
+        LightIntensity shadow(0.0,0.0,0.0);
+        return shadow;
+    }
+
+    Vector3 normal = ir->intersectionPointNormal;
+    Vector3 light(position - ir->point);
+
+    float lightDistance = light.GetLength();
+    normal.Normalize();
+    light.Normalize();
+
+    Material* mat = ir->object->GetMaterial();
+    //if geometry has diffuse material calculate phong lighting
+    if(mat->type==DIFFUSE) {
+        DiffuseMaterial* diffMat = (DiffuseMaterial*)mat;
+        float diffuseFactor = normal.DotProduct(light);
+
+        if(diffuseFactor > 0.0f) {
+            float specPower = diffMat->specularCoeff;
+            Vector3 eye = cameraPosition - ir->point;
+            eye.Normalize();
+            Vector3 reflected = (-light).Reflect(normal);
+            float specFactor = pow(max(reflected.DotProduct(eye), 0.0f), specPower);
+
+            result += diffMat->diffuse*color*diffuseFactor;
+            result += diffMat->specular*color*specFactor;
+        }
+        result /= (attenuation.x+attenuation.y*lightDistance+attenuation.z*lightDistance*lightDistance);
+    }
+
+    return result;
+}
 
 
 //generate photon from unit sphere
@@ -90,10 +95,9 @@ Ray PointLight::GetPhoton(bool useProjectionMap) const {
     float x,y,z;
     bool ok=false;
     do {
-        //x = 2.0f*((float)qrand())/RAND_MAX-1.0f;
-        //y = 2.0f*((float)qrand())/RAND_MAX-1.0f;
-        //z = 2.0f*((float)qrand())/RAND_MAX-1.0f;
-		x = y = z = 0;
+        x = 2.0f*((float)rand())/RAND_MAX-1.0f;
+        y = 2.0f*((float)rand())/RAND_MAX-1.0f;
+        z = 2.0f*((float)rand())/RAND_MAX-1.0f;
 
         if(x*x+y*y+z*z<=1) {
             if(useProjectionMap && projectionMap) {
@@ -171,7 +175,7 @@ void PointLight::CreateProjectionMap(const Scene* scene) {
         }
     }
 
-    //projectionMap->SaveToFile("projectionMap.png");
+    projectionMap->SaveToFile("projectionMap.png");
 }
 
 

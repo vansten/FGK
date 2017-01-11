@@ -1,9 +1,8 @@
-#include "Camera.h"
-//#include <algorithm>
 #include <cfloat>
+#include "Timer.h"
+#include "Camera.h"
 #include "PhotonMap.h"
 #include "StreamPhotonMap.h"
-//#include <QTime>
 
 #define BIAS 0.001f
 using namespace std;
@@ -16,7 +15,7 @@ Camera::Camera()
     farPlane = 1000;
     fov = 54;
     img = 0;
-    //renderFileName = "render";
+    renderFileName = "render";
 }
 
 Camera::Camera(Vector3 positon, Vector3 target, float nearPlane, float farPlane, float fov) {
@@ -26,7 +25,7 @@ Camera::Camera(Vector3 positon, Vector3 target, float nearPlane, float farPlane,
     this->farPlane = farPlane;
     this->fov = fov;
     img=0;
-    //renderFileName = "render";
+    renderFileName = "render";
 }
 
 
@@ -65,7 +64,7 @@ void Camera::Recalculate() {
 
 void Camera::RenderScene(Scene* scene, unsigned int ns) {
 
-    //QTime time;
+	Timer t;
 
     Recalculate();
 
@@ -108,7 +107,8 @@ void Camera::RenderScene(Scene* scene, unsigned int ns) {
             img->SetPixel(x,y,currentPixel/(numSamples*numSamples));
         }
 
-        //m_renderingTime = (int)time.elapsed();
+		m_renderingTime = t.GetElapsedMS();
+		printf("Rendering time: %f", m_renderingTime);
         //qDebug()<<"Rendering time " << m_renderingTime <<"ms";
 		//
         //img->SaveToFile(renderFileName);
@@ -117,7 +117,7 @@ void Camera::RenderScene(Scene* scene, unsigned int ns) {
 
 void Camera::RenderSceneStream(Scene* scene, unsigned int ns, unsigned int m_numEmittedGlobalPhotons,
                                unsigned int m_numEmittedCausticPhotons, int numAssociatedPhotons, float radius, int reflections) {
-    //QTime time;
+	Timer t;
 
     Recalculate();
 
@@ -128,7 +128,7 @@ void Camera::RenderSceneStream(Scene* scene, unsigned int ns, unsigned int m_num
     if(img) {
         img->Clear(LightIntensity(0,0,0));
 
-        //time.restart();
+		t.Restart();
 
         StreamPhotonMap photonMap;
         photonMap.SetNumAssociatedPhotons(numAssociatedPhotons);
@@ -146,14 +146,14 @@ void Camera::RenderSceneStream(Scene* scene, unsigned int ns, unsigned int m_num
         //qDebug()<<"generuje mape kaustyczna";
         causticPhotonMap.GeneratePhotonMap(scene, m_numEmittedCausticPhotons, 4, true);
 
-        //m_renderingTime = time.elapsed();
+		m_renderingTime = t.GetElapsedMS();
         //qDebug()<<"Photon tracing time " << m_renderingTime <<"ms";
 
-        //time.restart();
+		t.Restart();
 
         //qDebug()<<"w scenie jest "<<scene->geometry.count()<<" obiektow";
         // przed renderingiem usun sciane frontowa ktora sluzyla tylko do odbijania fotonow podczas propagacji aby nie uciekaly ze sceny
-        //scene->geometry.at(0)->deleteFrontWall();
+        scene->geometry.front()->deleteFrontWall();
         //qDebug()<<"zaczynam renderowac";
 
         //wrong sampling method
@@ -232,11 +232,9 @@ void Camera::RenderSceneStream(Scene* scene, unsigned int ns, unsigned int m_num
                     {
                         //obliczanie losowej pozycji wewnatrz piksela
 
-                        //losoweX = -1.0 + (i+ (static_cast <float>(qrand()/static_cast <float> (RAND_MAX))) )*pxWidth;
-                        //losoweY = 1.0 - (j+ (static_cast <float>(qrand()/static_cast <float> (RAND_MAX))) )*pxHeight;
-						losoweX = 50;
-						losoweY = 50;
-                        losoweX /= projectionMatrix.entries[0];
+                        losoweX = -1.0 + (i+ (static_cast <float>(rand()/static_cast <float> (RAND_MAX))) )*pxWidth;
+                        losoweY = 1.0 - (j+ (static_cast <float>(rand()/static_cast <float> (RAND_MAX))) )*pxHeight;
+						losoweX /= projectionMatrix.entries[0];
                         losoweY /= projectionMatrix.entries[5];
 
                         Vector4 origin(0,0,0,1);
@@ -254,10 +252,12 @@ void Camera::RenderSceneStream(Scene* scene, unsigned int ns, unsigned int m_num
             }
         }
 
-        //m_renderingTime = time.elapsed();
+		m_renderingTime = t.GetElapsedMS();
         //qDebug()<<"Rendering time " << m_renderingTime <<"ms";
 
-        //renderFileName = QString("spm_%1_%2_%3_%4_%5_%6").arg(ns).arg(m_numEmittedGlobalPhotons).arg(m_numEmittedCausticPhotons).arg(numAssociatedPhotons).arg(radius).arg(m_renderingTime);
+		char buff[1000];
+		snprintf(buff, sizeof(buff), "spm_%s_%s_%s_%s_%s_%s", std::to_string(ns).c_str(), std::to_string(m_numEmittedGlobalPhotons).c_str(), std::to_string(m_numEmittedCausticPhotons).c_str(), std::to_string(numAssociatedPhotons).c_str(), std::to_string(radius).c_str(), std::to_string(m_renderingTime).c_str());
+		renderFileName = buff;
         //img->SaveToFile(renderFileName);
     }
 }
@@ -265,7 +265,7 @@ void Camera::RenderSceneStream(Scene* scene, unsigned int ns, unsigned int m_num
 void Camera::RenderScene(Scene* scene, unsigned int ns, unsigned int numGlobalMapPhotons,
                          unsigned int numCausticMapPhotons)
 {
-    //QTime time;
+	Timer t;
     Recalculate();
 
     float pixelW = 1.0f/img->GetWidth();
@@ -281,8 +281,8 @@ void Camera::RenderScene(Scene* scene, unsigned int ns, unsigned int numGlobalMa
 
         PhotonMap causticPhotonMap;
         causticPhotonMap.GeneratePhotonMap(scene, numCausticMapPhotons, 2, true);
-        //time.restart();
-        #pragma omp parallel for schedule(dynamic, 50)
+		t.Restart();
+		#pragma omp parallel for schedule(dynamic, 50)
         for(unsigned int i=0;i<img->GetWidth()*img->GetHeight();i++) {
             float x = i % img->GetWidth();
             float y = i / img->GetWidth();
@@ -310,17 +310,19 @@ void Camera::RenderScene(Scene* scene, unsigned int ns, unsigned int numGlobalMa
             img->SetPixel(x,y,currentPixel/(numSamples*numSamples));
         }
 
-        //m_renderingTime = time.elapsed();
+        m_renderingTime = t.GetElapsedMS();
         //qDebug()<<"Rendering time " << m_renderingTime <<"ms";
 
-        //renderFileName = QString("pm_%1_%2_%3_%4").arg(ns).arg(numGlobalMapPhotons).arg(numCausticMapPhotons).arg(m_renderingTime);
+		char buff[1000];
+		snprintf(buff, sizeof(buff), "pm_%s_%s_%s_%s", std::to_string(ns).c_str(), std::to_string(numGlobalMapPhotons).c_str(), std::to_string(numCausticMapPhotons).c_str(), std::to_string(m_renderingTime).c_str());
+		renderFileName = buff;
         //img->SaveToFile(renderFileName);
     }
 }
 
 void Camera::VisualizePhotonMap(Scene *scene, int numPhotons, int maxReflections)
 {
-    //QTime time;
+	Timer t;
      Recalculate();
     if(img) {
         img->Clear(LightIntensity(0,0,0));
@@ -329,7 +331,7 @@ void Camera::VisualizePhotonMap(Scene *scene, int numPhotons, int maxReflections
 
         photonMap.GeneratePhotonMap(scene, numPhotons, maxReflections, true);
 
-        //time.restart();
+		t.Restart();
         #pragma omp parallel for
         for(unsigned int i=0;i<img->GetWidth()*img->GetHeight();i++) {
             float x = i % img->GetWidth();
@@ -359,16 +361,21 @@ void Camera::VisualizePhotonMap(Scene *scene, int numPhotons, int maxReflections
             IntersectionResult closestIntersection;
 
             IntersectionResult result;
-            //for(int j=0;j<scene->geometry.count();j++) {
-            //    result = scene->geometry.at(j)->Intersects(ray);
-            //    if(result.type!=MISS) {
-            //        if(closestDist>result.distance) {
-            //            closestDist = result.distance;
-            //            closest = j;
-            //            closestIntersection = result;
-            //        }
-            //    }
-            //}
+			auto geometryIt = scene->geometry.begin();
+			auto geometryEnd = scene->geometry.end();
+			int j = 0;
+			for(geometryIt; geometryIt != geometryEnd; ++geometryIt, ++j)
+			{
+				result = (*geometryIt)->Intersects(ray);
+				    if(result.type!=MISS) {
+				        if(closestDist>result.distance) {
+				            closestDist = result.distance;
+				            closest = j;
+				            closestIntersection = result;
+				        }
+				    }
+			}
+            
 
             if(closest!=-1) {
                 if(closestIntersection.object->GetMaterial()->type==REFLECTIVE) {
@@ -400,10 +407,12 @@ void Camera::VisualizePhotonMap(Scene *scene, int numPhotons, int maxReflections
             img->SetPixel(X,Y,resultIntensity);
         }
 
-        //m_renderingTime = time.elapsed();
+		m_renderingTime = t.GetElapsedMS();
         //qDebug()<<"Rendering time " << m_renderingTime <<"ms";
 
-        //renderFileName = QString("vpm_%1_%2_%3").arg(numPhotons).arg(maxReflections).arg(m_renderingTime);
+		char buff[1000];
+		snprintf(buff, sizeof(buff), "vpm_%s_%s_%s", std::to_string(numPhotons).c_str(), std::to_string(maxReflections).c_str(), std::to_string(m_renderingTime).c_str());
+		renderFileName = buff;
         //img->SaveToFile(renderFileName);
     }
 }
@@ -411,7 +420,7 @@ void Camera::VisualizePhotonMap(Scene *scene, int numPhotons, int maxReflections
 
 void Camera::VisualizeStreamPhotonMap(Scene *scene, int numPhotons, int maxReflections, int numAssociatedPhotons, float radius)
 {
-    //QTime time;
+	Timer t;
     Recalculate();
     if(img) {
         img->Clear(LightIntensity(0,0,0));
@@ -422,7 +431,7 @@ void Camera::VisualizeStreamPhotonMap(Scene *scene, int numPhotons, int maxRefle
 
         photonMap.GeneratePhotonMap(scene, numPhotons, maxReflections, false);
 
-        //time.restart();
+		t.Restart();
         #pragma omp parallel for
         for(unsigned int i=0;i<img->GetWidth()*img->GetHeight();i++) {
             float x = i % img->GetWidth();
@@ -452,16 +461,22 @@ void Camera::VisualizeStreamPhotonMap(Scene *scene, int numPhotons, int maxRefle
             IntersectionResult closestIntersection;
 
             IntersectionResult result;
-            //for(int j=0;j<scene->geometry.count();j++) {
-            //    result = scene->geometry.at(j)->Intersects(ray);
-            //    if(result.type!=MISS) {
-            //        if(closestDist>result.distance) {
-            //            closestDist = result.distance;
-            //            closest = j;
-            //            closestIntersection = result;
-            //        }
-            //    }
-            //}
+			auto geometryIt = scene->geometry.begin();
+			auto geometryEnd = scene->geometry.end();
+			int j = 0;
+			for(geometryIt; geometryIt != geometryEnd; ++geometryIt, ++j)
+			{
+				result = (*geometryIt)->Intersects(ray);
+				if(result.type != MISS)
+				{
+					if(closestDist>result.distance)
+					{
+						closestDist = result.distance;
+						closest = j;
+						closestIntersection = result;
+					}
+				}
+			}
 
             if(closest!=-1) {
                 if(closestIntersection.object->GetMaterial()->type==REFLECTIVE) {
@@ -500,10 +515,12 @@ void Camera::VisualizeStreamPhotonMap(Scene *scene, int numPhotons, int maxRefle
             img->SetPixel(X,Y,resultIntensity);
         }
 
-        //m_renderingTime = time.elapsed();
+		m_renderingTime = t.GetElapsedMS();
         //qDebug()<<"Rendering time " << m_renderingTime <<"ms";
 		//
-        //renderFileName = QString("vspm_%1_%2_%3_%4_%5").arg(numPhotons).arg(maxReflections).arg(numAssociatedPhotons).arg(radius).arg(m_renderingTime);
+		char buff[1000];
+		snprintf(buff, sizeof(buff), "vspm_%s_%s_%s_%s_%s", std::to_string(numPhotons).c_str(), std::to_string(maxReflections).c_str(), std::to_string(numAssociatedPhotons).c_str(), std::to_string(radius).c_str(), std::to_string(m_renderingTime).c_str());
+		renderFileName = buff;
         //img->SaveToFile(renderFileName);
     }
 }
