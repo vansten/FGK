@@ -1,0 +1,208 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{932F2BC6-A0BB-4B83-8C7D-A1AA872CF9CC}</ProjectGuid>
+    <RootNamespace>FGK</RootNamespace>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <IncludePath>ThirdParty\GTK_PLUS_364\lib\libff-3.0.12\include;ThirdParty\GTK_PLUS_364\include;$(IncludePath)</IncludePath>
+    <LibraryPath>ThirdParty\GTK_PLUS_364\lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <IncludePath>ThirdParty\GTK_PLUS_364\lib\libff-3.0.12\include;ThirdParty\GTK_PLUS_364\include;$(IncludePath)</IncludePath>
+    <LibraryPath>ThirdParty\GTK_PLUS_364\lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <IncludePath>ThirdParty\GTK_PLUS_364\lib\libff-3.0.12\include;ThirdParty\GTK_PLUS_364\include;$(IncludePath)</IncludePath>
+    <LibraryPath>ThirdParty\GTK_PLUS_364\lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <IncludePath>ThirdParty\GTK_PLUS_364\lib\libff-3.0.12\include;ThirdParty\GTK_PLUS_364\include;$(IncludePath)</IncludePath>
+    <LibraryPath>ThirdParty\GTK_PLUS_364\lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalOptions>-mms-bitfields -IW:/FGK/FGK/ThirdParty/GTK_PLUS_364/include/gtk-3.0 -IW:/FGK/FGK/ThirdParty/GTK_PLUS_364/include/cairo -IW:/FGK/FGK/ThirdParty/GTK_PLUS_364/include/pango-1.0 -IW:/FGK/FGK/ThirdParty/GTK_PLUS_364/include/atk-1.0 -IW:/FGK/FGK/ThirdParty/GTK_PLUS_364/include/cairo -IW:/FGK/FGK/ThirdParty/GTK_PLUS_364/include/pixman-1 -IW:/FGK/FGK/ThirdParty/GTK_PLUS_364/include -IW:/FGK/FGK/ThirdParty/GTK_PLUS_364/include/freetype2 -IW:/FGK/FGK/ThirdParty/GTK_PLUS_364/include -IW:/FGK/FGK/ThirdParty/GTK_PLUS_364/include/libpng15 -IW:/FGK/FGK/ThirdParty/GTK_PLUS_364/include/gdk-pixbuf-2.0 -IW:/FGK/FGK/ThirdParty/GTK_PLUS_364/include/libpng15 -IW:/FGK/FGK/ThirdParty/GTK_PLUS_364/include/glib-2.0 -IW:/FGK/FGK/ThirdParty/GTK_PLUS_364/lib/glib-2.0/include %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <Link>
+      <SubSystem>NotSet</SubSystem>
+      <AdditionalOptions>-LW:/FGK/FGK/ThirdParty/GTK_PLUS_364/lib -lgtk-3 -lgdk-3 -lgdi32 -limm32 -lshell32 -lole32 -Wl,-luuid -lpangocairo-1.0 -lpangoft2-1.0 -lfreetype -lfontconfig -lpangowin32-1.0 -lgdi32 -lpango-1.0 -lm -latk-1.0 -lcairo-gobject -lcairo -lgdk_pixbuf-2.0 -lgio-2.0 -lgobject-2.0 -lglib-2.0 -lintl %(AdditionalOptions)</AdditionalOptions>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalOptions>-mms-bitfields -IW:/FGK/FGK/ThirdParty/GTK_PLUS_364/include/gtk-3.0 -IW:/FGK/FGK/ThirdParty/GTK_PLUS_364/include/cairo -IW:/FGK/FGK/ThirdParty/GTK_PLUS_364/include/pango-1.0 -IW:/FGK/FGK/ThirdParty/GTK_PLUS_364/include/atk-1.0 -IW:/FGK/FGK/ThirdParty/GTK_PLUS_364/include/cairo -IW:/FGK/FGK/ThirdParty/GTK_PLUS_364/include/pixman-1 -IW:/FGK/FGK/ThirdParty/GTK_PLUS_364/include -IW:/FGK/FGK/ThirdParty/GTK_PLUS_364/include/freetype2 -IW:/FGK/FGK/ThirdParty/GTK_PLUS_364/include -IW:/FGK/FGK/ThirdParty/GTK_PLUS_364/include/libpng15 -IW:/FGK/FGK/ThirdParty/GTK_PLUS_364/include/gdk-pixbuf-2.0 -IW:/FGK/FGK/ThirdParty/GTK_PLUS_364/include/libpng15 -IW:/FGK/FGK/ThirdParty/GTK_PLUS_364/include/glib-2.0 -IW:/FGK/FGK/ThirdParty/GTK_PLUS_364/lib/glib-2.0/include %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <Link>
+      <SubSystem>NotSet</SubSystem>
+      <AdditionalOptions>-LW:/FGK/FGK/ThirdParty/GTK_PLUS_364/lib -lgtk-3 -lgdk-3 -lgdi32 -limm32 -lshell32 -lole32 -Wl,-luuid -lpangocairo-1.0 -lpangoft2-1.0 -lfreetype -lfontconfig -lpangowin32-1.0 -lgdi32 -lpango-1.0 -lm -latk-1.0 -lcairo-gobject -lcairo -lgdk_pixbuf-2.0 -lgio-2.0 -lgobject-2.0 -lglib-2.0 -lintl %(AdditionalOptions)</AdditionalOptions>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalOptions>-mms-bitfields -IW:/FGK/FGK/ThirdParty/GTK_PLUS_364/include/gtk-3.0 -IW:/FGK/FGK/ThirdParty/GTK_PLUS_364/include/cairo -IW:/FGK/FGK/ThirdParty/GTK_PLUS_364/include/pango-1.0 -IW:/FGK/FGK/ThirdParty/GTK_PLUS_364/include/atk-1.0 -IW:/FGK/FGK/ThirdParty/GTK_PLUS_364/include/cairo -IW:/FGK/FGK/ThirdParty/GTK_PLUS_364/include/pixman-1 -IW:/FGK/FGK/ThirdParty/GTK_PLUS_364/include -IW:/FGK/FGK/ThirdParty/GTK_PLUS_364/include/freetype2 -IW:/FGK/FGK/ThirdParty/GTK_PLUS_364/include -IW:/FGK/FGK/ThirdParty/GTK_PLUS_364/include/libpng15 -IW:/FGK/FGK/ThirdParty/GTK_PLUS_364/include/gdk-pixbuf-2.0 -IW:/FGK/FGK/ThirdParty/GTK_PLUS_364/include/libpng15 -IW:/FGK/FGK/ThirdParty/GTK_PLUS_364/include/glib-2.0 -IW:/FGK/FGK/ThirdParty/GTK_PLUS_364/lib/glib-2.0/include %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <Link>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <SubSystem>NotSet</SubSystem>
+      <AdditionalOptions>-LW:/FGK/FGK/ThirdParty/GTK_PLUS_364/lib -lgtk-3 -lgdk-3 -lgdi32 -limm32 -lshell32 -lole32 -Wl,-luuid -lpangocairo-1.0 -lpangoft2-1.0 -lfreetype -lfontconfig -lpangowin32-1.0 -lgdi32 -lpango-1.0 -lm -latk-1.0 -lcairo-gobject -lcairo -lgdk_pixbuf-2.0 -lgio-2.0 -lgobject-2.0 -lglib-2.0 -lintl %(AdditionalOptions)</AdditionalOptions>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalOptions>-mms-bitfields -IW:/FGK/FGK/ThirdParty/GTK_PLUS_364/include/gtk-3.0 -IW:/FGK/FGK/ThirdParty/GTK_PLUS_364/include/cairo -IW:/FGK/FGK/ThirdParty/GTK_PLUS_364/include/pango-1.0 -IW:/FGK/FGK/ThirdParty/GTK_PLUS_364/include/atk-1.0 -IW:/FGK/FGK/ThirdParty/GTK_PLUS_364/include/cairo -IW:/FGK/FGK/ThirdParty/GTK_PLUS_364/include/pixman-1 -IW:/FGK/FGK/ThirdParty/GTK_PLUS_364/include -IW:/FGK/FGK/ThirdParty/GTK_PLUS_364/include/freetype2 -IW:/FGK/FGK/ThirdParty/GTK_PLUS_364/include -IW:/FGK/FGK/ThirdParty/GTK_PLUS_364/include/libpng15 -IW:/FGK/FGK/ThirdParty/GTK_PLUS_364/include/gdk-pixbuf-2.0 -IW:/FGK/FGK/ThirdParty/GTK_PLUS_364/include/libpng15 -IW:/FGK/FGK/ThirdParty/GTK_PLUS_364/include/glib-2.0 -IW:/FGK/FGK/ThirdParty/GTK_PLUS_364/lib/glib-2.0/include %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <Link>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <SubSystem>NotSet</SubSystem>
+      <AdditionalOptions>-LW:/FGK/FGK/ThirdParty/GTK_PLUS_364/lib -lgtk-3 -lgdk-3 -lgdi32 -limm32 -lshell32 -lole32 -Wl,-luuid -lpangocairo-1.0 -lpangoft2-1.0 -lfreetype -lfontconfig -lpangowin32-1.0 -lgdi32 -lpango-1.0 -lm -latk-1.0 -lcairo-gobject -lcairo -lgdk_pixbuf-2.0 -lgio-2.0 -lgobject-2.0 -lglib-2.0 -lintl %(AdditionalOptions)</AdditionalOptions>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="src\Camera.cpp" />
+    <ClCompile Include="src\DisplayWindow.cpp" />
+    <ClCompile Include="src\Geometry\Box.cpp" />
+    <ClCompile Include="src\Geometry\CornellBox.cpp" />
+    <ClCompile Include="src\Geometry\MS3DModel.cpp" />
+    <ClCompile Include="src\Geometry\Sphere.cpp" />
+    <ClCompile Include="src\Geometry\Triangle.cpp" />
+    <ClCompile Include="src\Image.cpp" />
+    <ClCompile Include="src\KDTree.cpp" />
+    <ClCompile Include="src\LightIntensity.cpp" />
+    <ClCompile Include="src\Lights\AmbientLight.cpp" />
+    <ClCompile Include="src\Lights\AreaLight.cpp" />
+    <ClCompile Include="src\Lights\PointLight.cpp" />
+    <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\MainWindow.cpp" />
+    <ClCompile Include="src\Material.cpp" />
+    <ClCompile Include="src\Math\Matrix4x4.cpp" />
+    <ClCompile Include="src\Math\Plane.cpp" />
+    <ClCompile Include="src\Math\Ray.cpp" />
+    <ClCompile Include="src\Math\Vector2.cpp" />
+    <ClCompile Include="src\Math\Vector3.cpp" />
+    <ClCompile Include="src\Math\Vector4.cpp" />
+    <ClCompile Include="src\PhotonMap.cpp" />
+    <ClCompile Include="src\RayTracer.cpp" />
+    <ClCompile Include="src\rendereroptions.cpp" />
+    <ClCompile Include="src\rendererpanel.cpp" />
+    <ClCompile Include="src\Scene.cpp" />
+    <ClCompile Include="src\StreamPhotonMap.cpp" />
+    <ClCompile Include="src\Texture.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\Camera.h" />
+    <ClInclude Include="src\DisplayWindow.h" />
+    <ClInclude Include="src\Geometry\Box.h" />
+    <ClInclude Include="src\Geometry\CornellBox.h" />
+    <ClInclude Include="src\Geometry\Geometry.h" />
+    <ClInclude Include="src\Geometry\MS3DModel.h" />
+    <ClInclude Include="src\Geometry\Sphere.h" />
+    <ClInclude Include="src\Geometry\Triangle.h" />
+    <ClInclude Include="src\Image.h" />
+    <ClInclude Include="src\KDTree.h" />
+    <ClInclude Include="src\LightIntensity.h" />
+    <ClInclude Include="src\Lights\AmbientLight.h" />
+    <ClInclude Include="src\Lights\AreaLight.h" />
+    <ClInclude Include="src\Lights\PointLight.h" />
+    <ClInclude Include="src\MainWindow.h" />
+    <ClInclude Include="src\Material.h" />
+    <ClInclude Include="src\Math\Matrix4x4.h" />
+    <ClInclude Include="src\Math\Plane.h" />
+    <ClInclude Include="src\Math\Ray.h" />
+    <ClInclude Include="src\Math\Vector2.h" />
+    <ClInclude Include="src\Math\Vector3.h" />
+    <ClInclude Include="src\Math\Vector4.h" />
+    <ClInclude Include="src\PhotonMap.h" />
+    <ClInclude Include="src\RayTracer.h" />
+    <ClInclude Include="src\rendereroptions.h" />
+    <ClInclude Include="src\rendererpanel.h" />
+    <ClInclude Include="src\Scene.h" />
+    <ClInclude Include="src\StreamPhotonMap.h" />
+    <ClInclude Include="src\Texture.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
