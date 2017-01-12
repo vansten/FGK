@@ -1,7 +1,7 @@
 #ifndef IMAGE_H
 #define IMAGE_H
+#include <string>
 #include "LightIntensity.h"
-//#include <QString>
 
 /**
   Image into which we render.
@@ -67,7 +67,7 @@ public:
       All values above 255 are clamped to 255.
       \param fileName path to file to save image (it should not contains extension to file, it is set automaticaly to png)
       */
-    //void SaveToFile(QString fileName);
+    void SaveToFile(std::string fileName);
 
 private:
     unsigned int width;

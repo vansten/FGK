@@ -1,5 +1,4 @@
 #include "Material.h"
-//#include <QDebug>
 
 Material::Material() {
     texture=0;

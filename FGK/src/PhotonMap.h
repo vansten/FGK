@@ -1,9 +1,9 @@
 #ifndef PHOTONMAP_H
 #define PHOTONMAP_H
 
+#include <list>
 #include "Math/Vector3.h"
 #include "LightIntensity.h"
-//#include <QList>
 #include "Lights/AmbientLight.h"
 #include "Scene.h"
 #include "KDTree.h"
@@ -41,15 +41,15 @@ public:
       \param radius radius of search
       \param maxPhotons maximum number of photons to find
       */
-    //QList<Photon*> GetClosestPhotons(Vector3 point, float radius, int maxPhotons);
+	std::list<Photon*> GetClosestPhotons(Vector3 point, float radius, int maxPhotons);
 
 private:
     //generates photons from single light
-    //void GeneratePhotons(AmbientLight* light, QList<Geometry*>* geometry, int numPhotons, bool caustic, int maxReflections);
+    void GeneratePhotons(AmbientLight* light, std::list<Geometry*>* geometry, int numPhotons, bool caustic, int maxReflections);
 
     //trace photon in scene and saves informatino to photon map
-    //void TracePhoton(LightIntensity photonEnergy, const Ray &startRay, QList<Geometry *> *geometry, QList<Photon *> *photons, int reflections);
-    //QList<Photon*> photons;
+    void TracePhoton(LightIntensity photonEnergy, const Ray &startRay, std::list<Geometry*> *geometry, std::list<Photon*> *photons, int reflections);
+    std::list<Photon*> photons;
     KDTree<Photon>* kdTree;
 
     int maxPhotons;

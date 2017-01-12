@@ -1,9 +1,10 @@
 #ifndef STREAMPHOTONMAP_H
 #define STREAMPHOTONMAP_H
 
+#include <list>
+#include <vector>
 #include "Math/Vector3.h"
 #include "LightIntensity.h"
-//#include <QList>
 #include "Lights/AmbientLight.h"
 #include "Scene.h"
 #include "KDTree.h"
@@ -19,7 +20,7 @@ struct Stream {
     //due to kdtree template;
     Vector3 position;
     SinglePhoton leadingPhoton;
-    //QVector<SinglePhoton> associatedPhoton;
+    std::vector<SinglePhoton> associatedPhoton;
     unsigned char divisionAxis;
 };
 
@@ -44,7 +45,7 @@ public:
       \param radius radius of search
       \param maxPhotons maximum number of streams to find
       */
-    //QList<Stream*> GetClosestPhotons(Vector3 point, float radius, int maxPhotons);
+    std::list<Stream*> GetClosestPhotons(Vector3 point, float radius, int maxPhotons);
 
     /**
       Sets radius of stream
@@ -61,10 +62,10 @@ public:
     }
 
 private:
-    //void GeneratePhotons(AmbientLight* light, QList<Geometry*>* geometry, int numPhotons, bool caustic, int maxReflections);
-    //void TracePhoton(LightIntensity photonEnergy, const Ray &startRay, QList<Geometry *> *geometry,
-    //                 QList<Stream *> *photons, Stream* parent, int reflections);
-    //QList<Stream*> photons;
+    void GeneratePhotons(AmbientLight* light, std::list<Geometry*>* geometry, int numPhotons, bool caustic, int maxReflections);
+    void TracePhoton(LightIntensity photonEnergy, const Ray &startRay, std::list<Geometry *> *geometry,
+                     std::list<Stream*> *photons, Stream* parent, int reflections);
+    std::list<Stream*> photons;
     KDTree<Stream>* kdTree;
 
     int maxPhotons;

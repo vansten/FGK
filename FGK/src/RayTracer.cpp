@@ -35,16 +35,20 @@ LightIntensity RayTracer::TraceRay(const Ray&ray, Scene*scene, const Vector3 cam
     IntersectionResult closestIntersection;
 
     IntersectionResult result;
-    //for(int j=0;j<scene->geometry.count();j++) {
-    //    result = scene->geometry.at(j)->Intersects(ray);
-    //    if(result.type!=MISS) {
-    //        if(closestDist>result.distance) {
-    //            closestDist = result.distance;
-    //            closest = j;
-    //            closestIntersection = result;
-    //        }
-    //    }
-    //}
+	int j = 0;
+	auto geometryIt = scene->geometry.begin();
+	auto geometryEnd = scene->geometry.end();
+	for(geometryIt; geometryIt != geometryEnd; ++geometryIt, ++j)
+	{
+        result = (*geometryIt)->Intersects(ray);
+        if(result.type!=MISS) {
+            if(closestDist>result.distance) {
+                closestDist = result.distance;
+                closest = j;
+                closestIntersection = result;
+            }
+        }
+    }
     if(closest!=-1) {
         if(closestIntersection.object->GetMaterial()->type==REFLECTIVE && reflections>0) {
             Vector3 reflected = ray.direction.Reflect(closestIntersection.intersectionPointNormal);
@@ -84,43 +88,53 @@ LightIntensity RayTracer::TraceRay(const Ray&ray, Scene*scene, const Vector3 cam
         }
         else {
             LightIntensity fromLights;
-            //for(int j=0;j<scene->lights.count();j++) {
-            //    fromLights += scene->lights.at(j)->GetLightIntensity(cameraPosition, &closestIntersection, scene->geometry);
-            //}
+			auto lightsIt = scene->lights.begin();
+			auto lightsEnd = scene->lights.end();
+			for(lightsIt; lightsIt != lightsEnd; ++lightsIt)
+			{
+                fromLights += (*lightsIt)->GetLightIntensity(cameraPosition, &closestIntersection, scene->geometry);
+            }
             resultIntensity += fromLights;
 
             if(globalMap) {
-                //QList<Photon*> closest = globalMap->GetClosestPhotons(closestIntersection.point, globalRadius, globalNumPhotons);
-				//
-                //if(closest.count()!=0) {
-                //    float r = (closest[0]->position-closestIntersection.point).GetLength();
-				//
-                //    LightIntensity E;
-                //    for(int z=0;z<closest.count();z++) {
-                //        float dot = closestIntersection.intersectionPointNormal.DotProduct(closest[z]->direction);
-                //        if(dot>0) {
-                //            E += exposure*closest[z]->energy*dot;
-                //        }
-                //    }
-                //   resultIntensity += (E/(M_PI*r*r));
-                //}
+                std::list<Photon*> closest = globalMap->GetClosestPhotons(closestIntersection.point, globalRadius, globalNumPhotons);
+				
+                if(closest.size()!=0) {
+                    float r = (closest.front()->position-closestIntersection.point).GetLength();
+				
+                    LightIntensity E;
+					auto closestIt = closest.begin();
+					auto closestEnd = closest.end();
+					for(closestIt; closestIt != closestEnd; ++closestIt)
+					{
+                        float dot = closestIntersection.intersectionPointNormal.DotProduct((*closestIt)->direction);
+                        if(dot>0) {
+                            E += exposure*(*closestIt)->energy*dot;
+                        }
+                    }
+                   resultIntensity += (E/(M_PI*r*r));
+                }
             }
 
             if(causticMap) {
-                //QList<Photon*> closest = causticMap->GetClosestPhotons(closestIntersection.point, causticRadius, causticNumPhotons);
-				//
-                //if(closest.count()!=0) {
-                //    float r = (closest[0]->position-closestIntersection.point).GetLength();
-				//
-                //    LightIntensity E;
-                //    for(int z=0;z<closest.count();z++) {
-                //        float dot = closestIntersection.intersectionPointNormal.DotProduct(closest[z]->direction);
-                //        if(dot>0) {
-                //            E += exposure*closest[z]->energy*dot;
-                //        }
-                //    }
-                //   resultIntensity += (E/(M_PI*r*r));
-                //}
+				std::list<Photon*> closest = causticMap->GetClosestPhotons(closestIntersection.point, causticRadius, causticNumPhotons);
+				
+                if(closest.size()!=0) {
+                    float r = (closest.front()->position-closestIntersection.point).GetLength();
+				
+                    LightIntensity E;
+					auto closestIt = closest.begin();
+					auto closestEnd = closest.end();
+					for(closestIt; closestIt != closestEnd; ++closestIt)
+					{
+						float dot = closestIntersection.intersectionPointNormal.DotProduct((*closestIt)->direction);
+						if(dot>0)
+						{
+							E += exposure*(*closestIt)->energy*dot;
+						}
+					}
+                   resultIntensity += (E/(M_PI*r*r));
+                }
             }
 
         }
@@ -143,16 +157,20 @@ LightIntensity RayTracer::TraceRayStream(const Ray&ray, Scene*scene,
     IntersectionResult closestIntersection;
 
     IntersectionResult result;
-    //for(int j=0;j<scene->geometry.count();j++) {
-    //    result = scene->geometry.at(j)->Intersects(ray);
-    //    if(result.type!=MISS) {
-    //        if(closestDist>result.distance) {
-    //            closestDist = result.distance;
-    //            closest = j;
-    //            closestIntersection = result;
-    //        }
-    //    }
-    //}
+	auto geometryIt = scene->geometry.begin();
+	auto geometryEnd = scene->geometry.end();
+	int j = 0;
+	for(geometryIt; geometryIt != geometryEnd; ++geometryIt, ++j)
+	{
+        result = (*geometryIt)->Intersects(ray);
+        if(result.type!=MISS) {
+            if(closestDist>result.distance) {
+                closestDist = result.distance;
+                closest = j;
+                closestIntersection = result;
+            }
+        }
+    }
     if(closest!=-1) {
         if(closestIntersection.object->GetMaterial()->type==REFLECTIVE && reflections>0) {
             Vector3 reflected = ray.direction.Reflect(closestIntersection.intersectionPointNormal);
@@ -195,63 +213,81 @@ LightIntensity RayTracer::TraceRayStream(const Ray&ray, Scene*scene,
 
             // direct illumination calculated per light with Phong equation
 
-            //for(int j=0;j<scene->lights.count();j++) {
-            //    fromLights += scene->lights.at(j)->GetLightIntensity(cameraPosition, &closestIntersection, scene->geometry);
-            //}
+			auto lightsIt = scene->lights.begin();
+			auto lightsEnd = scene->lights.end();
+			for(lightsIt; lightsIt != lightsEnd; ++lightsIt)
+			{
+                fromLights += (*lightsIt)->GetLightIntensity(cameraPosition, &closestIntersection, scene->geometry);
+            }
             resultIntensity += 0.75*fromLights; //0.75 is proportion of added direct light
 
 
             // indirect illumination
             if(globalMap) {
-                //QList<Stream*> closest = globalMap->GetClosestPhotons(closestIntersection.point, globalRadius, globalNumPhotons);
-				//
-                //if(closest.count()!=0) {
-                //    float r = (closest[0]->position-closestIntersection.point).GetLength();
-				//
-                //    LightIntensity E;
-                //    for(int z=0;z<closest.count();z++) {
-                //        for(int j=0;j<closest[z]->associatedPhoton.count();j++) {
-                //            float dot = closestIntersection.intersectionPointNormal.DotProduct(closest[z]->associatedPhoton[j].direction);
-                //            if(dot>0) {
-                //                E += exposure*closest[z]->associatedPhoton[j].energy*dot;
-				//
-                //            }
-                //        }
-				//
-                //        float dot = closestIntersection.intersectionPointNormal.DotProduct(closest[z]->leadingPhoton.direction);
-                //        if(dot>0) {
-                //            E += exposure*closest[z]->leadingPhoton.energy*dot;
-                //        }
-                //    }
-				//
-                //    resultIntensity += (E/(M_PI*r*r)); //ewentualny mnoznik E* 0.5 zmniejsza wplyw oswietlenia posredniego
-                //}
+                std::list<Stream*> closest = globalMap->GetClosestPhotons(closestIntersection.point, globalRadius, globalNumPhotons);
+				
+                if(closest.size()!=0) {
+                    float r = (closest.front()->position-closestIntersection.point).GetLength();
+				
+                    LightIntensity E; 
+					auto closestIt = closest.begin();
+					auto closestEnd = closest.end();
+					for(closestIt; closestIt != closestEnd; ++closestIt)
+					{
+						auto associatedIt = (*closestIt)->associatedPhoton.begin();
+						auto associatedEnd = (*closestIt)->associatedPhoton.end();
+						for(associatedIt; associatedIt != associatedEnd; ++associatedIt)
+						{
+							float dot = closestIntersection.intersectionPointNormal.DotProduct((*associatedIt).direction);
+							if(dot > 0)
+							{
+								E += exposure*(*associatedIt).energy*dot;
+							}
+						}
+						
+						float dot = closestIntersection.intersectionPointNormal.DotProduct((*closestIt)->leadingPhoton.direction);
+						if(dot>0)
+						{
+							E += exposure*(*closestIt)->leadingPhoton.energy*dot;
+						}
+					}
+				
+                    resultIntensity += (E/(M_PI*r*r)); //ewentualny mnoznik E* 0.5 zmniejsza wplyw oswietlenia posredniego
+                }
             }
 
             if(causticMap) {
-                //QList<Stream*> closest = causticMap->GetClosestPhotons(closestIntersection.point, causticRadius, causticNumPhotons);
-				//
-                //if(closest.count()!=0) {
-                //    float r = (closest[0]->position-closestIntersection.point).GetLength();
-				//
-                //    LightIntensity E;
-                //    for(int z=0;z<closest.count();z++) {
-                //        for(int j=0;j<closest[z]->associatedPhoton.count();j++) {
-                //            float dot = closestIntersection.intersectionPointNormal.DotProduct(closest[z]->associatedPhoton[j].direction);
-                //            if(dot>0) {
-                //                E += exposure*closest[z]->associatedPhoton[j].energy*dot;
-				//
-                //            }
-                //        }
-				//
-                //        float dot = closestIntersection.intersectionPointNormal.DotProduct(closest[z]->leadingPhoton.direction);
-                //        if(dot>0) {
-                //            E += exposure*closest[z]->leadingPhoton.energy*dot;
-                //        }
-                //    }
-				//
-                //    resultIntensity += (E/(M_PI*r*r));
-                //}
+                std::list<Stream*> closest = causticMap->GetClosestPhotons(closestIntersection.point, causticRadius, causticNumPhotons);
+				
+				if(closest.size() != 0)
+				{
+					float r = (closest.front()->position - closestIntersection.point).GetLength();
+
+					LightIntensity E;
+					auto closestIt = closest.begin();
+					auto closestEnd = closest.end();
+					for(closestIt; closestIt != closestEnd; ++closestIt)
+					{
+						auto associatedIt = (*closestIt)->associatedPhoton.begin();
+						auto associatedEnd = (*closestIt)->associatedPhoton.end();
+						for(associatedIt; associatedIt != associatedEnd; ++associatedIt)
+						{
+							float dot = closestIntersection.intersectionPointNormal.DotProduct((*associatedIt).direction);
+							if(dot > 0)
+							{
+								E += exposure*(*associatedIt).energy*dot;
+							}
+						}
+
+						float dot = closestIntersection.intersectionPointNormal.DotProduct((*closestIt)->leadingPhoton.direction);
+						if(dot>0)
+						{
+							E += exposure*(*closestIt)->leadingPhoton.energy*dot;
+						}
+					}
+
+					resultIntensity += (E / (M_PI*r*r)); //ewentualny mnoznik E* 0.5 zmniejsza wplyw oswietlenia posredniego
+				}
             }
 
 
