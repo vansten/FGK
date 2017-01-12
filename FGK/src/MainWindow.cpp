@@ -285,4 +285,3 @@ void MainWindow::renderScene()
 
     //repaint();
 }
-
