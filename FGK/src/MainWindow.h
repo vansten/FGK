@@ -1,8 +1,6 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <gtk/gtk.h>
-
 //#include <QtWidgets/QWidget>
 //#include <QtWidgets/QPushButton>
 #include "DisplayWindow.h"
@@ -11,7 +9,7 @@
 #include "rendererpanel.h"
 
 
-class MainWindow : public GtkWidget
+class MainWindow/* : public GtkWidget*/
 {
     //Q_OBJECT
 public:
