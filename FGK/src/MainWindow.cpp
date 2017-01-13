@@ -41,6 +41,11 @@
 //
 //}
 
+MainWindow::MainWindow(const wxPoint & pos, const wxSize & size) :
+	wxFrame(NULL, wxID_ANY, "GuzekRenderer", pos, size)
+{
+}
+
 MainWindow::~MainWindow()
 {
     delete m_image;

@@ -69,23 +69,23 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(IncludePath)</IncludePath>
-    <LibraryPath>$(LibraryPath)</LibraryPath>
+    <IncludePath>ThirdParty\wxWidgets-3.1.0\include;D:\Repositories\FGK\FGK\ThirdParty\wxWidgets-3.1.0\lib\mswud;$(IncludePath)</IncludePath>
+    <LibraryPath>ThirdParty\wxWidgets-3.1.0\lib;$(LibraryPath)</LibraryPath>
     <ExecutablePath>$(ExecutablePath)</ExecutablePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>$(IncludePath)</IncludePath>
-    <LibraryPath>$(LibraryPath)</LibraryPath>
+    <IncludePath>ThirdParty\wxWidgets-3.1.0\include;D:\Repositories\FGK\FGK\ThirdParty\wxWidgets-3.1.0\lib\mswud;$(IncludePath)</IncludePath>
+    <LibraryPath>ThirdParty\wxWidgets-3.1.0\lib;$(LibraryPath)</LibraryPath>
     <ExecutablePath>$(ExecutablePath)</ExecutablePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(IncludePath)</IncludePath>
-    <LibraryPath>$(LibraryPath)</LibraryPath>
+    <IncludePath>ThirdParty\wxWidgets-3.1.0\include;D:\Repositories\FGK\FGK\ThirdParty\wxWidgets-3.1.0\lib\mswud;$(IncludePath)</IncludePath>
+    <LibraryPath>ThirdParty\wxWidgets-3.1.0\lib;$(LibraryPath)</LibraryPath>
     <ExecutablePath>$(ExecutablePath)</ExecutablePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>$(IncludePath)</IncludePath>
-    <LibraryPath>$(LibraryPath)</LibraryPath>
+    <IncludePath>ThirdParty\wxWidgets-3.1.0\include;D:\Repositories\FGK\FGK\ThirdParty\wxWidgets-3.1.0\lib\mswud;$(IncludePath)</IncludePath>
+    <LibraryPath>ThirdParty\wxWidgets-3.1.0\lib;$(LibraryPath)</LibraryPath>
     <ExecutablePath>$(ExecutablePath)</ExecutablePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -94,11 +94,12 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <AdditionalOptions>-mms-bitfields -IW:/FGK/FGK/ThirdParty/GTK_PLUS_364/include/gtk-3.0 -IW:/FGK/FGK/ThirdParty/GTK_PLUS_364/include/cairo -IW:/FGK/FGK/ThirdParty/GTK_PLUS_364/include/pango-1.0 -IW:/FGK/FGK/ThirdParty/GTK_PLUS_364/include/atk-1.0 -IW:/FGK/FGK/ThirdParty/GTK_PLUS_364/include/cairo -IW:/FGK/FGK/ThirdParty/GTK_PLUS_364/include/pixman-1 -IW:/FGK/FGK/ThirdParty/GTK_PLUS_364/include -IW:/FGK/FGK/ThirdParty/GTK_PLUS_364/include/freetype2 -IW:/FGK/FGK/ThirdParty/GTK_PLUS_364/include -IW:/FGK/FGK/ThirdParty/GTK_PLUS_364/include/libpng15 -IW:/FGK/FGK/ThirdParty/GTK_PLUS_364/include/gdk-pixbuf-2.0 -IW:/FGK/FGK/ThirdParty/GTK_PLUS_364/include/libpng15 -IW:/FGK/FGK/ThirdParty/GTK_PLUS_364/include/glib-2.0 -IW:/FGK/FGK/ThirdParty/GTK_PLUS_364/lib/glib-2.0/include %(AdditionalOptions)</AdditionalOptions>
+      <PreprocessorDefinitions>WXUSINGDLL;WIN32;__WXMSW__;_WINDOWS;_DEBUG;__WXDEBUG__;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
       <AdditionalOptions>-LW:/FGK/FGK/ThirdParty/GTK_PLUS_364/lib -lgtk-3 -lgdk-3 -lgdi32 -limm32 -lshell32 -lole32 -Wl,-luuid -lpangocairo-1.0 -lpangoft2-1.0 -lfreetype -lfontconfig -lpangowin32-1.0 -lgdi32 -lpango-1.0 -lm -latk-1.0 -lcairo-gobject -lcairo -lgdk_pixbuf-2.0 -lgio-2.0 -lgobject-2.0 -lglib-2.0 -lintl %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>wxbase31u.lib;wxbase31u_net.lib;wxbase31u_xml.lib;wxbase31ud.lib;wxbase31ud_net.lib;wxbase31ud_xml.lib;wxexpat.lib;wxexpatd.lib;wxjpeg.lib;wxjpegd.lib;wxmsw31u_adv.lib;wxmsw31u_aui.lib;wxmsw31u_core.lib;wxmsw31u_gl.lib;wxmsw31u_html.lib;wxmsw31u_media.lib;wxmsw31u_propgrid.lib;wxmsw31ud_qa.lib;ThirdParty\wxWidgets-3.1.0\lib\wxmsw31ud_ribbon.lib;ThirdParty\wxWidgets-3.1.0\lib\wxmsw31ud_richtext.lib;ThirdParty\wxWidgets-3.1.0\lib\wxmsw31ud_stc.lib;ThirdParty\wxWidgets-3.1.0\lib\wxmsw31ud_webview.lib;ThirdParty\wxWidgets-3.1.0\lib\wxmsw31ud_xrc.lib;ThirdParty\wxWidgets-3.1.0\lib\wxpng.lib;ThirdParty\wxWidgets-3.1.0\lib\wxpngd.lib;ThirdParty\wxWidgets-3.1.0\lib\wxregexu.lib;ThirdParty\wxWidgets-3.1.0\lib\wxregexud.lib;wxscintilla.lib;wxscintillad.lib;wxtiff.lib;wxtiffd.lib;wxzlib.lib;wxzlibd.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -107,11 +108,12 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <AdditionalOptions>-mms-bitfields -IW:/FGK/FGK/ThirdParty/GTK_PLUS_364/include/gtk-3.0 -IW:/FGK/FGK/ThirdParty/GTK_PLUS_364/include/cairo -IW:/FGK/FGK/ThirdParty/GTK_PLUS_364/include/pango-1.0 -IW:/FGK/FGK/ThirdParty/GTK_PLUS_364/include/atk-1.0 -IW:/FGK/FGK/ThirdParty/GTK_PLUS_364/include/cairo -IW:/FGK/FGK/ThirdParty/GTK_PLUS_364/include/pixman-1 -IW:/FGK/FGK/ThirdParty/GTK_PLUS_364/include -IW:/FGK/FGK/ThirdParty/GTK_PLUS_364/include/freetype2 -IW:/FGK/FGK/ThirdParty/GTK_PLUS_364/include -IW:/FGK/FGK/ThirdParty/GTK_PLUS_364/include/libpng15 -IW:/FGK/FGK/ThirdParty/GTK_PLUS_364/include/gdk-pixbuf-2.0 -IW:/FGK/FGK/ThirdParty/GTK_PLUS_364/include/libpng15 -IW:/FGK/FGK/ThirdParty/GTK_PLUS_364/include/glib-2.0 -IW:/FGK/FGK/ThirdParty/GTK_PLUS_364/lib/glib-2.0/include %(AdditionalOptions)</AdditionalOptions>
+      <PreprocessorDefinitions>WXUSINGDLL;WIN32;__WXMSW__;_WINDOWS;_DEBUG;__WXDEBUG__;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
       <AdditionalOptions>-LW:/FGK/FGK/ThirdParty/GTK_PLUS_364/lib -lgtk-3 -lgdk-3 -lgdi32 -limm32 -lshell32 -lole32 -Wl,-luuid -lpangocairo-1.0 -lpangoft2-1.0 -lfreetype -lfontconfig -lpangowin32-1.0 -lgdi32 -lpango-1.0 -lm -latk-1.0 -lcairo-gobject -lcairo -lgdk_pixbuf-2.0 -lgio-2.0 -lgobject-2.0 -lglib-2.0 -lintl %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>wxbase31u.lib;wxbase31u_net.lib;wxbase31u_xml.lib;wxbase31ud.lib;wxbase31ud_net.lib;wxbase31ud_xml.lib;wxexpat.lib;wxexpatd.lib;wxjpeg.lib;wxjpegd.lib;wxmsw31u_adv.lib;wxmsw31u_aui.lib;wxmsw31u_core.lib;wxmsw31u_gl.lib;wxmsw31u_html.lib;wxmsw31u_media.lib;wxmsw31u_propgrid.lib;wxmsw31ud_qa.lib;ThirdParty\wxWidgets-3.1.0\lib\wxmsw31ud_ribbon.lib;ThirdParty\wxWidgets-3.1.0\lib\wxmsw31ud_richtext.lib;ThirdParty\wxWidgets-3.1.0\lib\wxmsw31ud_stc.lib;ThirdParty\wxWidgets-3.1.0\lib\wxmsw31ud_webview.lib;ThirdParty\wxWidgets-3.1.0\lib\wxmsw31ud_xrc.lib;ThirdParty\wxWidgets-3.1.0\lib\wxpng.lib;ThirdParty\wxWidgets-3.1.0\lib\wxpngd.lib;ThirdParty\wxWidgets-3.1.0\lib\wxregexu.lib;ThirdParty\wxWidgets-3.1.0\lib\wxregexud.lib;wxscintilla.lib;wxscintillad.lib;wxtiff.lib;wxtiffd.lib;wxzlib.lib;wxzlibd.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -122,13 +124,14 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <AdditionalOptions>-mms-bitfields -IW:/FGK/FGK/ThirdParty/GTK_PLUS_364/include/gtk-3.0 -IW:/FGK/FGK/ThirdParty/GTK_PLUS_364/include/cairo -IW:/FGK/FGK/ThirdParty/GTK_PLUS_364/include/pango-1.0 -IW:/FGK/FGK/ThirdParty/GTK_PLUS_364/include/atk-1.0 -IW:/FGK/FGK/ThirdParty/GTK_PLUS_364/include/cairo -IW:/FGK/FGK/ThirdParty/GTK_PLUS_364/include/pixman-1 -IW:/FGK/FGK/ThirdParty/GTK_PLUS_364/include -IW:/FGK/FGK/ThirdParty/GTK_PLUS_364/include/freetype2 -IW:/FGK/FGK/ThirdParty/GTK_PLUS_364/include -IW:/FGK/FGK/ThirdParty/GTK_PLUS_364/include/libpng15 -IW:/FGK/FGK/ThirdParty/GTK_PLUS_364/include/gdk-pixbuf-2.0 -IW:/FGK/FGK/ThirdParty/GTK_PLUS_364/include/libpng15 -IW:/FGK/FGK/ThirdParty/GTK_PLUS_364/include/glib-2.0 -IW:/FGK/FGK/ThirdParty/GTK_PLUS_364/lib/glib-2.0/include %(AdditionalOptions)</AdditionalOptions>
+      <PreprocessorDefinitions>WXUSINGDLL;WIN32;__WXMSW__;_WINDOWS;_DEBUG;__WXDEBUG__;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
       <AdditionalOptions>-LW:/FGK/FGK/ThirdParty/GTK_PLUS_364/lib -lgtk-3 -lgdk-3 -lgdi32 -limm32 -lshell32 -lole32 -Wl,-luuid -lpangocairo-1.0 -lpangoft2-1.0 -lfreetype -lfontconfig -lpangowin32-1.0 -lgdi32 -lpango-1.0 -lm -latk-1.0 -lcairo-gobject -lcairo -lgdk_pixbuf-2.0 -lgio-2.0 -lgobject-2.0 -lglib-2.0 -lintl %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>wxbase31u.lib;wxbase31u_net.lib;wxbase31u_xml.lib;wxbase31ud.lib;wxbase31ud_net.lib;wxbase31ud_xml.lib;wxexpat.lib;wxexpatd.lib;wxjpeg.lib;wxjpegd.lib;wxmsw31u_adv.lib;wxmsw31u_aui.lib;wxmsw31u_core.lib;wxmsw31u_gl.lib;wxmsw31u_html.lib;wxmsw31u_media.lib;wxmsw31u_propgrid.lib;wxmsw31ud_qa.lib;ThirdParty\wxWidgets-3.1.0\lib\wxmsw31ud_ribbon.lib;ThirdParty\wxWidgets-3.1.0\lib\wxmsw31ud_richtext.lib;ThirdParty\wxWidgets-3.1.0\lib\wxmsw31ud_stc.lib;ThirdParty\wxWidgets-3.1.0\lib\wxmsw31ud_webview.lib;ThirdParty\wxWidgets-3.1.0\lib\wxmsw31ud_xrc.lib;ThirdParty\wxWidgets-3.1.0\lib\wxpng.lib;ThirdParty\wxWidgets-3.1.0\lib\wxpngd.lib;ThirdParty\wxWidgets-3.1.0\lib\wxregexu.lib;ThirdParty\wxWidgets-3.1.0\lib\wxregexud.lib;wxscintilla.lib;wxscintillad.lib;wxtiff.lib;wxtiffd.lib;wxzlib.lib;wxzlibd.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -139,13 +142,14 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <AdditionalOptions>-mms-bitfields -IW:/FGK/FGK/ThirdParty/GTK_PLUS_364/include/gtk-3.0 -IW:/FGK/FGK/ThirdParty/GTK_PLUS_364/include/cairo -IW:/FGK/FGK/ThirdParty/GTK_PLUS_364/include/pango-1.0 -IW:/FGK/FGK/ThirdParty/GTK_PLUS_364/include/atk-1.0 -IW:/FGK/FGK/ThirdParty/GTK_PLUS_364/include/cairo -IW:/FGK/FGK/ThirdParty/GTK_PLUS_364/include/pixman-1 -IW:/FGK/FGK/ThirdParty/GTK_PLUS_364/include -IW:/FGK/FGK/ThirdParty/GTK_PLUS_364/include/freetype2 -IW:/FGK/FGK/ThirdParty/GTK_PLUS_364/include -IW:/FGK/FGK/ThirdParty/GTK_PLUS_364/include/libpng15 -IW:/FGK/FGK/ThirdParty/GTK_PLUS_364/include/gdk-pixbuf-2.0 -IW:/FGK/FGK/ThirdParty/GTK_PLUS_364/include/libpng15 -IW:/FGK/FGK/ThirdParty/GTK_PLUS_364/include/glib-2.0 -IW:/FGK/FGK/ThirdParty/GTK_PLUS_364/lib/glib-2.0/include %(AdditionalOptions)</AdditionalOptions>
+      <PreprocessorDefinitions>WXUSINGDLL;WIN32;__WXMSW__;_WINDOWS;_DEBUG;__WXDEBUG__;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
       <AdditionalOptions>-LW:/FGK/FGK/ThirdParty/GTK_PLUS_364/lib -lgtk-3 -lgdk-3 -lgdi32 -limm32 -lshell32 -lole32 -Wl,-luuid -lpangocairo-1.0 -lpangoft2-1.0 -lfreetype -lfontconfig -lpangowin32-1.0 -lgdi32 -lpango-1.0 -lm -latk-1.0 -lcairo-gobject -lcairo -lgdk_pixbuf-2.0 -lgio-2.0 -lgobject-2.0 -lglib-2.0 -lintl %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>wxbase31u.lib;wxbase31u_net.lib;wxbase31u_xml.lib;wxbase31ud.lib;wxbase31ud_net.lib;wxbase31ud_xml.lib;wxexpat.lib;wxexpatd.lib;wxjpeg.lib;wxjpegd.lib;wxmsw31u_adv.lib;wxmsw31u_aui.lib;wxmsw31u_core.lib;wxmsw31u_gl.lib;wxmsw31u_html.lib;wxmsw31u_media.lib;wxmsw31u_propgrid.lib;wxmsw31ud_qa.lib;ThirdParty\wxWidgets-3.1.0\lib\wxmsw31ud_ribbon.lib;ThirdParty\wxWidgets-3.1.0\lib\wxmsw31ud_richtext.lib;ThirdParty\wxWidgets-3.1.0\lib\wxmsw31ud_stc.lib;ThirdParty\wxWidgets-3.1.0\lib\wxmsw31ud_webview.lib;ThirdParty\wxWidgets-3.1.0\lib\wxmsw31ud_xrc.lib;ThirdParty\wxWidgets-3.1.0\lib\wxpng.lib;ThirdParty\wxWidgets-3.1.0\lib\wxpngd.lib;ThirdParty\wxWidgets-3.1.0\lib\wxregexu.lib;ThirdParty\wxWidgets-3.1.0\lib\wxregexud.lib;wxscintilla.lib;wxscintillad.lib;wxtiff.lib;wxtiffd.lib;wxzlib.lib;wxzlibd.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>

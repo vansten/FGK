@@ -1,6 +1,12 @@
 #include <ctime>
 #include <functional>
 
+#include <wx/wxprec.h>
+#include <wx/app.h>
+#ifndef WX_PRECOMP
+#include <wx/wx.h>
+#endif
+
 #include "MainWindow.h"
 #include "Math/Vector2.h"
 #include "Math/Vector3.h"
@@ -20,19 +26,17 @@
 #include "Geometry/MS3DModel.h"
 #include "Geometry/Box.h"
 
-int main(int argc, char *argv[])
+class MyApp : public wxApp
 {
-	srand(time(NULL));
-   //QApplication a(argc, argv);
-   //
-   //MainWindow window;
-   //window.show();
-   //
-   //return a.exec();
+public:
+	virtual bool OnInit();
+};
 
-#ifdef _DEBUG
-	_CrtDumpMemoryLeaks();
-#endif
-	return 0;
+wxIMPLEMENT_APP(MyApp);
+
+bool MyApp::OnInit()
+{
+	MainWindow* window = new MainWindow(wxPoint(0, 0), wxSize(1024, 600));
+	window->Show(true);
+	return true;
 }
-

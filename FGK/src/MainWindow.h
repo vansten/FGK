@@ -1,19 +1,21 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-//#include <QtWidgets/QWidget>
-//#include <QtWidgets/QPushButton>
+#include <wx/wxprec.h>
+#ifndef WX_PRECOMP
+#include <wx/wx.h>
+#endif
+
 #include "DisplayWindow.h"
 #include "Lights/PointLight.h"
 
 #include "rendererpanel.h"
 
 
-class MainWindow/* : public GtkWidget*/
+class MainWindow : public wxFrame
 {
-    //Q_OBJECT
 public:
-    //explicit MainWindow(QWidget *parent = 0);
+	explicit MainWindow(const wxPoint& pos, const wxSize& size);
     ~MainWindow();
 
 public:
