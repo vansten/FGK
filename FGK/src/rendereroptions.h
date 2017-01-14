@@ -1,6 +1,14 @@
 #ifndef RENDEREROPTIONS_H
 #define RENDEREROPTIONS_H
 
+#include <wx/wxprec.h>
+#ifndef WX_PRECOMP
+#include <wx/wx.h>
+#endif
+
+class wxSpinCtrl;
+class wxSpinCtrlDouble;
+
 //#include <QtWidgets/QWidget>
 //#include <QtWidgets/QSpinBox>
 //#include <QtWidgets/QLabel>
@@ -24,15 +32,26 @@ struct RendererParams
 
 // -----------------------------------------------------------------------------
 
-class StreamRendererOptions// : public QWidget
+class StreamRendererOptions : public wxPanel
 {
     //Q_OBJECT
 public:
-    //explicit StreamRendererOptions(QWidget *parent = 0);
+    explicit StreamRendererOptions(wxWindow* parent = nullptr);
 
     RendererParams getRendererParams() const;
 
 private:
+	wxSpinCtrl*       m_numSamples;
+	wxSpinCtrl*       m_numEmittedGlobalPhotons;
+	wxSpinCtrl*       m_numEmittedCausticPhotons;
+	wxSpinCtrl*       m_numAssociatedPhotons;
+	wxSpinCtrlDouble* m_streamRadius;
+	wxSpinCtrlDouble* m_globalSearchingRadius;
+	wxSpinCtrl*       m_numSearchedGlobalPhotons;
+	wxSpinCtrlDouble* m_causticSearchingRadius;
+	wxSpinCtrl*       m_numSearchedCausticPhotons;
+	wxSpinCtrl*       m_maxReflections;
+
     //QSpinBox*       m_numSamples;
     //QSpinBox*       m_numEmittedGlobalPhotons;
     //QSpinBox*       m_numEmittedCausticPhotons;
@@ -47,15 +66,18 @@ private:
 
 // -----------------------------------------------------------------------------
 
-class PhotonMapRendererOptions// : public QWidget
+class PhotonMapRendererOptions : public wxPanel
 {
-    //Q_OBJECT
 public:
-    //explicit PhotonMapRendererOptions(QWidget *parent = 0);
+    explicit PhotonMapRendererOptions(wxWindow* parent = nullptr);
 
     RendererParams getRendererParams() const;
 
 private:
+	wxSpinCtrl*       m_numSamples;
+	wxSpinCtrl*       m_numEmittedGlobalPhotons;
+	wxSpinCtrl*       m_numEmittedCausticPhotons;
+
     //QSpinBox*       m_numSamples;
     //QSpinBox*       m_numEmittedGlobalPhotons;
     //QSpinBox*       m_numEmittedCausticPhotons;
@@ -63,30 +85,36 @@ private:
 
 // -----------------------------------------------------------------------------
 
-class PhotonMapVisualizerOptions// : public QWidget
+class PhotonMapVisualizerOptions : public wxPanel
 {
-    //Q_OBJECT
 public:
-    //explicit PhotonMapVisualizerOptions(QWidget *parent = 0);
+    explicit PhotonMapVisualizerOptions(wxWindow* parent = nullptr);
 
     RendererParams getRendererParams() const;
 
 private:
+	wxSpinCtrl*       m_numPhotons;
+	wxSpinCtrl*       m_maxReflections;
+
     //QSpinBox*       m_numPhotons;
     //QSpinBox*       m_maxReflections;
 };
 
 // -----------------------------------------------------------------------------
 
-class StreamVisualizerOptions// : public QWidget
+class StreamVisualizerOptions : public wxPanel
 {
-    //Q_OBJECT
 public:
-    //explicit StreamVisualizerOptions(QWidget *parent = 0);
+    explicit StreamVisualizerOptions(wxWindow* parent = nullptr);
 
     RendererParams getRendererParams() const;
 
 private:
+	wxSpinCtrl*       m_numAssociatedPhotons;
+	wxSpinCtrlDouble* m_streamRadius;
+	wxSpinCtrl*       m_numPhotons;
+	wxSpinCtrl*       m_maxReflections;
+
     //QSpinBox*       m_numAssociatedPhotons;
     //QDoubleSpinBox* m_streamRadius;
     //QSpinBox*       m_numPhotons;

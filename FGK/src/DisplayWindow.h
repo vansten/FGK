@@ -1,27 +1,29 @@
 #ifndef DISPLAYWINDOW_H
 #define DISPLAYWINDOW_H
 
-//#include <QtWidgets/QWidget>
-//#include <QtGui>
-//#include <QTimer>
+#include <wx/wxprec.h>
+#ifndef WX_PRECOMP
+#include <wx/wx.h>
+#endif
+
 #include "Image.h"
 
 /**
   Window that displays rendered image.
   */
-class DisplayWindow// : public QWidget
+class DisplayWindow : public wxPanel
 {
-    //Q_OBJECT
 public:
-    //explicit DisplayWindow(QWidget *parent = 0);
+	explicit DisplayWindow(wxWindow* parent, const wxPoint& pos, const wxSize& size);
 
     //void paintEvent(QPaintEvent *);
+	void paintEvent(wxDC& dc);
 
     void setImage(Image* img);
 
 private:
     Image* image;
-    //QImage* pixmap;
+	wxBitmap* pixmap;
 };
 
 #endif // DISPLAYWINDOW_H

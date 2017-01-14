@@ -1,6 +1,11 @@
 #ifndef RENDERERPANEL_H
 #define RENDERERPANEL_H
 
+#include <wx/wxprec.h>
+#ifndef WX_PRECOMP
+#include <wx/wx.h>
+#endif
+
 //#include <QtWidgets/QWidget>
 //#include <QtWidgets/QStackedWidget>
 //#include <QtWidgets/QLayout>
@@ -19,11 +24,11 @@ enum RenderingMethod {
 /**
  *  @brief Side widget that allows choosing rendering method
  */
-class RendererPanel //: public QWidget
+class RendererPanel : public wxPanel
 {
-    //Q_OBJECT
 public:
     //explicit RendererPanel(QWidget *parent = 0);
+	explicit RendererPanel(wxWindow* parent = nullptr);
 
     RendererParams getRendererParams() const;
 
@@ -35,6 +40,8 @@ public:
     void updateRenderingTime(int time);
 
 private:
+	wxChoice*					m_rendererName;
+	wxBoxSizer*					m_rendererOptionsSizer;
     //QComboBox*                  m_rendererName;
     //QStackedWidget*             m_rendererOptionsPanel;
     StreamRendererOptions*      m_streamRendererOptions;
@@ -42,6 +49,7 @@ private:
     StreamVisualizerOptions*    m_streamVisualizerOptions;
     PhotonMapVisualizerOptions* m_photonMapVisualizerOptions;
     //QLabel*                     m_timeLabel;
+	wxStaticText*				m_timeLabel;
 };
 
 #endif // RENDERERPANEL_H

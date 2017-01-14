@@ -41,22 +41,47 @@
 //
 //}
 
+#define WX_ID_RENDERBUTTON 5
+
+wxBEGIN_EVENT_TABLE(MainWindow, wxFrame)
+	EVT_BUTTON(WX_ID_RENDERBUTTON, MainWindow::renderScene)
+wxEND_EVENT_TABLE()
+
 MainWindow::MainWindow(const wxPoint & pos, const wxSize & size) :
-	wxFrame(NULL, wxID_ANY, "GuzekRenderer", pos, size)
-	//m_rendererPanel(this)
+	wxFrame(NULL, wxID_ANY, "GuzekRenderer", pos, size),
+	display(new DisplayWindow(this, wxPoint(20, 20), wxSize(512, 512))),
+	renderButton(new wxButton(this, WX_ID_RENDERBUTTON, "Render")),
+	m_rendererPanel(new RendererPanel(this))
 {
-	renderButton = new wxButton(this, wxID_ANY, "Render", wxPoint(0, 0), wxSize(300, 160));
+	wxBoxSizer* sizerMain = new wxBoxSizer(wxHORIZONTAL);
+	wxBoxSizer* sizerPanel = new wxBoxSizer(wxVERTICAL);
+
+	sizerPanel->Add(
+		m_rendererPanel,
+		wxSizerFlags(0).Align(wxTOP).Border(wxDirection::wxALL, 10)
+	);
+	sizerPanel->Add(
+		renderButton,
+		wxSizerFlags(0).Align(wxBOTTOM).Border(wxALL, 10).Center()
+	);
+
+	sizerMain->Add(display, wxSizerFlags(wxSHAPED).Align(wxLEFT));
+
+	sizerMain->Add(sizerPanel, wxSizerFlags(0).Align(wxRIGHT));
+
+	SetSizerAndFit(sizerMain);
 }
 
 MainWindow::~MainWindow()
 {
+	display->Destroy();
 	renderButton->Destroy();
 
     delete m_image;
-    m_image = 0x0;
+    m_image = nullptr;
 }
 
-void MainWindow::renderScene()
+void MainWindow::renderScene(wxCommandEvent& ev)
 {
     // Setup scene
     Camera camera (Vector3(0.0,0.0,-29.0),

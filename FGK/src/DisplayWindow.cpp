@@ -7,13 +7,32 @@
 //    pixmap=0;
 //}
 
+DisplayWindow::DisplayWindow(wxWindow * parent, const wxPoint & pos, const wxSize & size) :
+	wxPanel(parent, wxID_ANY, pos, size)
+{
+	image = nullptr;
+	pixmap = nullptr;
+}
+
+void DisplayWindow::paintEvent(wxDC & dc)
+{
+	if (pixmap != nullptr)
+	{
+		dc.DrawBitmap(*pixmap, 0, 0);
+	}
+}
+
 void DisplayWindow::setImage(Image *img) {
-    //if(image)
-    //    delete pixmap;
+	if (image)
+	{
+        delete pixmap;
+	}
 
     image=img;
+	pixmap = new wxBitmap((const char*)&image->GetPixel(0, 0), img->GetWidth(), img->GetHeight(), -1);
     //pixmap = new QImage(img->GetWidth(), img->GetHeight(), QImage::Format_RGB32);
     //setMinimumSize(img->GetWidth(), img->GetHeight());
+	this->SetMinSize(wxSize(img->GetWidth(), img->GetHeight()));
 }
 
 //void DisplayWindow::paintEvent(QPaintEvent *) {

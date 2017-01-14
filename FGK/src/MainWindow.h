@@ -8,6 +8,7 @@
 
 #include "DisplayWindow.h"
 #include "Lights/PointLight.h"
+#include "Timer.h"
 
 #include "rendererpanel.h"
 
@@ -19,18 +20,18 @@ public:
     ~MainWindow();
 
 public:
-    void renderScene();
+    void renderScene(wxCommandEvent& ev);
 
 private:
-    DisplayWindow display;
-    //QVBoxLayout* mainLayout;
-    //QHBoxLayout* layout;
-    //QPushButton* renderButton;
+    DisplayWindow* display;
 	wxButton* renderButton;
+
     Image* m_image;
-    //QTimer timer;
+    Timer timer;
 
     RendererPanel* m_rendererPanel;
+
+	wxDECLARE_EVENT_TABLE();
 };
 
 #endif // MAINWINDOW_H
