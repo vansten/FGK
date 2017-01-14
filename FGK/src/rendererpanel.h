@@ -35,7 +35,7 @@ public:
     RenderingMethod renderingMethod() const;
     
 public:
-    void onCurrentChanged(int index);
+    void onCurrentChanged(wxCommandEvent& event);
 
     void updateRenderingTime(int time);
 
@@ -50,6 +50,8 @@ private:
     PhotonMapVisualizerOptions* m_photonMapVisualizerOptions;
     //QLabel*                     m_timeLabel;
 	wxStaticText*				m_timeLabel;
+
+	wxDECLARE_EVENT_TABLE();
 };
 
 #endif // RENDERERPANEL_H

@@ -69,7 +69,12 @@ MainWindow::MainWindow(const wxPoint & pos, const wxSize & size) :
 
 	sizerMain->Add(sizerPanel, wxSizerFlags(0).Align(wxRIGHT));
 
+	m_image = new Image(512, 512);
+	display->setImage(m_image);
+
 	SetSizerAndFit(sizerMain);
+
+	display->Refresh();
 }
 
 MainWindow::~MainWindow()
@@ -317,5 +322,5 @@ void MainWindow::renderScene(wxCommandEvent& ev)
         //QMessageBox::warning(this,"Wrong rendering method", "Error");
     }
 
-    //repaint();
+	display->Refresh();
 }

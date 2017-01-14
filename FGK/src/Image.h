@@ -8,6 +8,7 @@
   */
 class Image
 {
+	friend class DisplayWindow;
 public:
     /**
       Creates default image of size 640x480px

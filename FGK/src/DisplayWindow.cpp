@@ -7,6 +7,10 @@
 //    pixmap=0;
 //}
 
+wxBEGIN_EVENT_TABLE(DisplayWindow, wxPanel)
+	EVT_PAINT(DisplayWindow::paintEvent)
+wxEND_EVENT_TABLE()
+
 DisplayWindow::DisplayWindow(wxWindow * parent, const wxPoint & pos, const wxSize & size) :
 	wxPanel(parent, wxID_ANY, pos, size)
 {
@@ -14,11 +18,31 @@ DisplayWindow::DisplayWindow(wxWindow * parent, const wxPoint & pos, const wxSiz
 	pixmap = nullptr;
 }
 
-void DisplayWindow::paintEvent(wxDC & dc)
+void DisplayWindow::paintEvent(wxPaintEvent & evt)
+{
+	wxPaintDC dc(this);
+	render(dc);
+}
+
+void DisplayWindow::render(wxDC & dc)
 {
 	if (pixmap != nullptr)
 	{
-		dc.DrawBitmap(*pixmap, 0, 0);
+		unsigned int wh = image->GetWidth()*image->GetHeight();
+		for (unsigned int i = 0; i < wh; i++) 
+		{
+			unsigned int x = i % image->GetWidth();
+			unsigned int y = i / image->GetWidth();
+			LightIntensity p = image->GetPixel(x, y);
+			p*=255;
+			if(p.r>255)p.r=255;
+			if(p.g>255)p.g=255;
+			if(p.b>255)p.b=255;
+			pixmap->SetRGB(x, y, p.r, p.g, p.b);
+		}
+
+		wxBitmap bitmap(*pixmap);
+		dc.DrawBitmap(bitmap, 0, 0);
 	}
 }
 
@@ -29,7 +53,8 @@ void DisplayWindow::setImage(Image *img) {
 	}
 
     image=img;
-	pixmap = new wxBitmap((const char*)&image->GetPixel(0, 0), img->GetWidth(), img->GetHeight(), -1);
+	pixmap = new wxImage(img->GetWidth(), img->GetHeight());
+	//pixmap = new wxBitmap((const char*)image->pixels, img->GetWidth(), img->GetHeight(), 1);
     //pixmap = new QImage(img->GetWidth(), img->GetHeight(), QImage::Format_RGB32);
     //setMinimumSize(img->GetWidth(), img->GetHeight());
 	this->SetMinSize(wxSize(img->GetWidth(), img->GetHeight()));

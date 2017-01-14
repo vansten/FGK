@@ -7,6 +7,10 @@
 #define WX_ID_RENDERER_OPTIONS_PHOTON_VISUALIZER 15
 #define WX_ID_TIME_LABEL 16
 
+wxBEGIN_EVENT_TABLE(RendererPanel, wxPanel)
+	EVT_CHOICE(WX_ID_RENDERER_NAME, RendererPanel::onCurrentChanged)
+wxEND_EVENT_TABLE()
+
 /*
 RendererPanel::RendererPanel(QWidget *parent)
     : QWidget(parent)
@@ -61,9 +65,9 @@ RendererPanel::RendererPanel(wxWindow * parent) :
 	, m_photonMapRendererOptions(new PhotonMapRendererOptions(this))
 	, m_streamVisualizerOptions(new StreamVisualizerOptions(this))
 	, m_photonMapVisualizerOptions(new PhotonMapVisualizerOptions(this))
-	, m_timeLabel(new wxStaticText(this, WX_ID_TIME_LABEL, "Dummy timer text"))
+	, m_timeLabel(new wxStaticText(this, WX_ID_TIME_LABEL, "Rendering time: 0 ms"))
 {
-	m_timeLabel->SetFont(wxFont(10, wxFONTFAMILY_DECORATIVE, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD));
+	m_timeLabel->SetFont(wxFont(10, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD));
 
 	wxArrayString rnStrings;
 	rnStrings.Add(wxString("Stream Rendering"));
@@ -91,36 +95,41 @@ RendererPanel::RendererPanel(wxWindow * parent) :
 	sizer->Add(m_timeLabel, wxSizerFlags().Top().Center());
 	sizer->AddSpacer(1);
 
+	sizer->SetMinSize(wxSize(350, 0));
+
 	SetSizerAndFit(sizer);
 }
 
-void RendererPanel::onCurrentChanged(int index)
+void RendererPanel::onCurrentChanged(wxCommandEvent& event)
 {
     //m_rendererOptionsPanel->setCurrentIndex(index);
+	int index = event.GetInt();
 	for (int i = 0; i < 4; ++i)
 	{
 		if (i == index)
 		{
-			m_rendererOptionsSizer->Show(static_cast<size_t>(index));
+			m_rendererOptionsSizer->Show(static_cast<size_t>(i));
 		}
 		else
 		{
-			m_rendererOptionsSizer->Hide(static_cast<size_t>(index));
+			m_rendererOptionsSizer->Hide(static_cast<size_t>(i));
 		}
 	}
+
+	SetSizerAndFit(GetSizer());
 }
 
 RendererParams RendererPanel::getRendererParams() const
 {
     RendererParams params;
 	
-    if (StreamRenderer == m_rendererName->GetCurrentSelection()) {
+    if (StreamRenderer == renderingMethod()) {
         params = m_streamRendererOptions->getRendererParams();
-    } else if (PhotonMapRenderer == m_rendererName->GetCurrentSelection()) {
+    } else if (PhotonMapRenderer == renderingMethod()) {
         params = m_photonMapRendererOptions->getRendererParams();
-    } else if (StreamVisualizer == m_rendererName->GetCurrentSelection()) {
+    } else if (StreamVisualizer == renderingMethod()) {
         params = m_streamVisualizerOptions->getRendererParams();
-    } else if (PhotonMapVisualizer == m_rendererName->GetCurrentSelection()) {
+    } else if (PhotonMapVisualizer == renderingMethod()) {
         params = m_photonMapVisualizerOptions->getRendererParams();
     }
     return params;
@@ -128,7 +137,15 @@ RendererParams RendererPanel::getRendererParams() const
 
 RenderingMethod RendererPanel::renderingMethod() const
 {
-    return static_cast<RenderingMethod>(m_rendererName->GetCurrentSelection());
+	int sel = m_rendererName->GetCurrentSelection();
+	if (sel > 0 && sel < 4)
+	{
+		return static_cast<RenderingMethod>(sel);
+	}
+	else
+	{
+		return StreamRenderer;
+	}
 }
 
 void RendererPanel::updateRenderingTime(int time)
