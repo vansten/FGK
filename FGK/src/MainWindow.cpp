@@ -43,11 +43,15 @@
 
 MainWindow::MainWindow(const wxPoint & pos, const wxSize & size) :
 	wxFrame(NULL, wxID_ANY, "GuzekRenderer", pos, size)
+	//m_rendererPanel(this)
 {
+	renderButton = new wxButton(this, wxID_ANY, "Render", wxPoint(0, 0), wxSize(300, 160));
 }
 
 MainWindow::~MainWindow()
 {
+	renderButton->Destroy();
+
     delete m_image;
     m_image = 0x0;
 }

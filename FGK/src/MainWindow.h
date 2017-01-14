@@ -26,6 +26,7 @@ private:
     //QVBoxLayout* mainLayout;
     //QHBoxLayout* layout;
     //QPushButton* renderButton;
+	wxButton* renderButton;
     Image* m_image;
     //QTimer timer;
 
