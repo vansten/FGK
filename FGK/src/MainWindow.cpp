@@ -44,14 +44,15 @@
 #define WX_ID_RENDERBUTTON 5
 
 wxBEGIN_EVENT_TABLE(MainWindow, wxFrame)
-	EVT_BUTTON(WX_ID_RENDERBUTTON, MainWindow::renderScene)
+EVT_BUTTON(WX_ID_RENDERBUTTON, MainWindow::renderScene)
 wxEND_EVENT_TABLE()
 
 MainWindow::MainWindow(const wxPoint & pos, const wxSize & size) :
 	wxFrame(NULL, wxID_ANY, "GuzekRenderer", pos, size),
 	display(new DisplayWindow(this, wxPoint(20, 20), wxSize(512, 512))),
 	renderButton(new wxButton(this, WX_ID_RENDERBUTTON, "Render")),
-	m_rendererPanel(new RendererPanel(this))
+	m_rendererPanel(new RendererPanel(this)),
+	m_consolePanel(new ConsolePanel(this))
 {
 	wxBoxSizer* sizerMain = new wxBoxSizer(wxHORIZONTAL);
 	wxBoxSizer* sizerPanel = new wxBoxSizer(wxVERTICAL);
@@ -68,6 +69,8 @@ MainWindow::MainWindow(const wxPoint & pos, const wxSize & size) :
 	sizerMain->Add(display, wxSizerFlags(wxSHAPED).Align(wxLEFT));
 
 	sizerMain->Add(sizerPanel, wxSizerFlags(0).Align(wxRIGHT));
+
+	sizerMain->Add(m_consolePanel, wxSizerFlags(0).Align(wxDOWN).Center().Border(wxDirection::wxALL, 10));
 
 	m_image = new Image(512, 512);
 	display->setImage(m_image);

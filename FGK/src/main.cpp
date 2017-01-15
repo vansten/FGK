@@ -38,5 +38,7 @@ bool MyApp::OnInit()
 {
 	MainWindow* window = new MainWindow(wxPoint(0, 0), wxSize(1024, 600));
 	window->Show(true);
+	Logger() << "Get";
+	Logger() << 1 << 2.0f << "\n" << true;
 	return true;
 }

@@ -1,6 +1,11 @@
 #ifndef TEXTURE_H
 #define TEXTURE_H
-//#include <QImage>
+
+#include <wx/wxprec.h>
+#ifndef WX_PRECOMP
+#include <wx/wx.h>
+#endif
+
 #include "LightIntensity.h"
 #include "Math/Vector3.h"
 
@@ -32,7 +37,7 @@ public:
     float GetWhiteToBlackPixelRatio() const;
 
 private:
-    //QImage* image;
+	wxImage* image;
 
     unsigned int width;
     unsigned int height;

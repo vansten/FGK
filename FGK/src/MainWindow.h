@@ -11,7 +11,7 @@
 #include "Timer.h"
 
 #include "rendererpanel.h"
-
+#include "ConsolePanel.h"
 
 class MainWindow : public wxFrame
 {
@@ -30,6 +30,7 @@ private:
     Timer timer;
 
     RendererPanel* m_rendererPanel;
+	ConsolePanel* m_consolePanel;
 
 	wxDECLARE_EVENT_TABLE();
 };

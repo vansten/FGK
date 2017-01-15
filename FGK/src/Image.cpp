@@ -1,5 +1,10 @@
 #include "Image.h"
 
+#include <wx/wxprec.h>
+#ifndef WX_PRECOMP
+#include <wx/wx.h>
+#endif
+
 Image::Image()
 {
     width = 640;
@@ -34,8 +39,8 @@ void Image::Clear(LightIntensity clearColor) {
 
 void Image::SaveToFile(std::string fileName) {
 
-    //QImage resultImage(width, height, QImage::Format_RGB32);
-    //QRgb* p = (QRgb*)resultImage.bits();
+	wxImage resultImage(width, height);
+	unsigned char* p = resultImage.GetData();
 
     for(unsigned int i=0;i<width*height;i++) {
         unsigned int r = pixels[i].r*255;
@@ -47,9 +52,13 @@ void Image::SaveToFile(std::string fileName) {
         if(b>255)b=255;
 
 
-        //*p = qRgb(r, g, b);
-        //p++;
+		*p += r;
+		p++;
+		*p += g;
+		p++;
+		*p += b;
+        p++;
     }
 
-    //resultImage.save(QString(fileName + ".png"));
+	resultImage.SaveFile(wxString(fileName) + ".png", wxBITMAP_TYPE_PNG);
 }

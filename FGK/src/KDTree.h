@@ -67,11 +67,17 @@ T* KDTree<T>::Median(std::list<T*> &photons, int axis) {
 	std::vector<int> keys;
 	auto listIt = list.begin();
 	auto listEnd = list.end();
-	for(listIt; listIt != listEnd; ++listIt)
+	int i = 0;
+	T* toRet = nullptr;
+	for(listIt; listIt != listEnd; ++listIt, ++i)
 	{
-		keys.push_back(listIt->first);
+		if(i == list.size() / 2)
+		{
+			toRet = (*listIt).second;
+			break;
+		}
 	}
-    return list[keys.at(keys.size()/2)];
+    return toRet;
 }
 
 template <typename T>

@@ -157,16 +157,20 @@ void PointLight::CreateProjectionMap(const Scene* scene) {
             IntersectionResult closestIntersection;
 
             IntersectionResult result;
-            //for(int j=0;j<scene->geometry.count();j++) {
-            //    result = scene->geometry.at(j)->Intersects(ray);
-            //    if(result.type!=MISS) {
-            //        if(closestDist>result.distance) {
-            //            closestDist = result.distance;
-            //            closest = j;
-            //            closestIntersection = result;
-            //        }
-            //    }
-            //}
+			auto geometryIt = scene->geometry.begin();
+			auto geometryEnd = scene->geometry.end();
+			int j = 0;
+			for(geometryIt; geometryIt != geometryEnd; ++geometryIt, ++j)
+			{
+                result = (*geometryIt)->Intersects(ray);
+                if(result.type!=MISS) {
+                    if(closestDist>result.distance) {
+                        closestDist = result.distance;
+                        closest = j;
+                        closestIntersection = result;
+                    }
+                }
+            }
 
             if(closest!=-1 && (closestIntersection.object->GetMaterial()->type == REFRACTIVE || closestIntersection.object->GetMaterial()->type == REFLECTIVE))
                 projectionMap->SetPixel(x,y,Color(1,1,1));

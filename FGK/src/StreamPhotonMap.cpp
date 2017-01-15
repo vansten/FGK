@@ -260,7 +260,7 @@ void StreamPhotonMap::TracePhoton(LightIntensity photonEnergy, const Ray &startR
                 int closestFlag=-1;
                 float closestDistance=FLT_MAX;
                 IntersectionResult tempClosestIntersection;
-                Ray oldAssociatedToNew(parent->associatedPhoton[j].position, newAssociatedPos - parent->associatedPhoton[j].position);
+                Ray oldAssociatedToNew((*associatedIt).position, newAssociatedPos - (*associatedIt).position);
                 IntersectionResult iresult;
 				auto geometryIt = geometry->begin();
 				auto geometryEnd = geometry->end();
@@ -300,7 +300,7 @@ void StreamPhotonMap::TracePhoton(LightIntensity photonEnergy, const Ray &startR
                         SinglePhoton newAssociated;
                         newAssociated.position = tempClosestIntersection.point;
                         newAssociated.direction = -oldAssociatedToNew.direction;
-                        newAssociated.energy = parent->associatedPhoton[j].energy;
+                        newAssociated.energy = (*associatedIt).energy;
                         newStream->associatedPhoton.push_back(newAssociated);
                         //jego energia po ewentualnym odbiciu bedzie rowna
                         SinglePhoton reflectedAssociated;
