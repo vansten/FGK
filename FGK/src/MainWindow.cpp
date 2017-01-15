@@ -50,7 +50,7 @@ wxEND_EVENT_TABLE()
 MainWindow::MainWindow(const wxPoint & pos, const wxSize & size) :
 	wxFrame(NULL, wxID_ANY, "GuzekRenderer", pos, size),
 	display(new DisplayWindow(this, wxPoint(20, 20), wxSize(512, 512))),
-	renderButton(new wxButton(this, WX_ID_RENDERBUTTON, "Render")),
+	renderButton(new wxButton(this, WX_ID_RENDERBUTTON, "Render", wxDefaultPosition, wxSize(200, 60))),
 	m_rendererPanel(new RendererPanel(this)),
 	m_consolePanel(new ConsolePanel(this))
 {
@@ -76,6 +76,8 @@ MainWindow::MainWindow(const wxPoint & pos, const wxSize & size) :
 	display->setImage(m_image);
 
 	SetSizerAndFit(sizerMain);
+
+	SetBackgroundColour(*wxWHITE);
 
 	display->Refresh();
 }
