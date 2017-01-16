@@ -2,6 +2,7 @@
 #include <cfloat>
 #include "KDTree.h"
 #include "Lights/AreaLight.h"
+#include "ConsolePanel.h"
 
 #define BIAS 0.001f
 
@@ -71,18 +72,18 @@ void StreamPhotonMap::GeneratePhotonMap(Scene *scene, int numPhotons, int maxRef
 void StreamPhotonMap::GeneratePhotons(AmbientLight *light, std::list<Geometry*>* geometry, int numPhotons, bool caustic, int maxReflections) {
 
     std::list<Stream*> tempPhotons;
-    //qDebug()<<"mam wyemitowac" <<numPhotons <<"fotonow";
+	Logger() << "mam wyemitowac " << numPhotons << " fotonow\n";
     int emittedPhotons = 0;
 
     //while(tempPhotons.count()<numPhotons && photons.count()+tempPhotons.count()<maxPhotons) {
     //while(tempPhotons.count()<numPhotons) {
     while(emittedPhotons<numPhotons && photons.size()+tempPhotons.size()<maxPhotons) {
         Ray photonRay;
-        //qDebug()<<tempPhotons.count();
+        //Logger()<<tempPhotons.count();
         //generate lead photon
         photonRay = light->GetPhoton(caustic);
 
-        //qDebug()<<"wyemitowalem foton wiodacy";
+        //Logger()<<"wyemitowalem foton wiodacy";
         Stream startStream;
         //jesli jest to foton niekaustyczny to wygeneruj fotony stowarzyszone w strumieniu
         if(!caustic)
@@ -96,12 +97,12 @@ void StreamPhotonMap::GeneratePhotons(AmbientLight *light, std::list<Geometry*>*
                 startStream.associatedPhoton.push_back(sp);
             }
         }
-        //qDebug()<<"Poczatkowo strumien ma"<<startStream.associatedPhoton.count()<<"fotonow stowarzyszonych";
+        //Logger()<<"Poczatkowo strumien ma"<<startStream.associatedPhoton.count()<<"fotonow stowarzyszonych";
         TracePhoton(light->color, photonRay, geometry, &tempPhotons, &startStream, maxReflections);
-        //qDebug()<<"koniec "<<tempPhotons.count();
+        //Logger()<<"koniec "<<tempPhotons.count();
         emittedPhotons++;
     }
-    printf("Wyemitowalem %i fotonow wiodacych", emittedPhotons);
+    Logger() << "Wyemitowalem " << emittedPhotons << " fotonow wiodacych";
 
     //przeskaluj energie kazdego fotonu przez liczbe zapisanych do mapy fotonow
     float scale;
@@ -124,7 +125,7 @@ void StreamPhotonMap::GeneratePhotons(AmbientLight *light, std::list<Geometry*>*
             (*associatedIt).energy*=scale;
     }
 
-    printf("Mapa fotonowa zawiera %i fotonow (wyemitowane + odbite)", photons.size());
+    Logger() << "Mapa fotonowa zawiera " << (int)photons.size() <<  " fotonow (wyemitowane + odbite)";
 }
 
 
@@ -207,7 +208,7 @@ void StreamPhotonMap::TracePhoton(LightIntensity photonEnergy, const Ray &startR
         }
         else {
             //we hit diffuse geometry
-            //qDebug()<<"wiodacy trafil w dyfuzyjna";
+            //Logger()<<"wiodacy trafil w dyfuzyjna";
 
             DiffuseMaterial* mat = (DiffuseMaterial*)closestIntersection.object->GetMaterial();
 
@@ -221,12 +222,12 @@ void StreamPhotonMap::TracePhoton(LightIntensity photonEnergy, const Ray &startR
             //tymczasowa lista do przechowywania odbitych fotonow stowarzyszonych
             std::vector<SinglePhoton> reflectedAssocPhotons;
 
-            //qDebug()<<"energia zapisanego fotonu wiodacego: "<<photonEnergy.r<<photonEnergy.g<<photonEnergy.b;
+            //Logger()<<"energia zapisanego fotonu wiodacego: "<<photonEnergy.r<<photonEnergy.g<<photonEnergy.b;
 
             //generate new associated photons
             int ileAssoc = 0;
-            //qDebug()<<"dotychczas w strumieniu bylo: "<<parent->associatedPhoton.count();
-            //qDebug()<<"dotychczasowy promien strumienia: "<<radius;
+            //Logger()<<"dotychczas w strumieniu bylo: "<<parent->associatedPhoton.count();
+            //Logger()<<"dotychczasowy promien strumienia: "<<radius;
 			auto associatedIt = parent->associatedPhoton.begin();
 			auto associatedEnd = parent->associatedPhoton.end();
 			for(associatedIt; associatedIt != associatedEnd; ++associatedIt)
@@ -281,20 +282,20 @@ void StreamPhotonMap::TracePhoton(LightIntensity photonEnergy, const Ray &startR
                 if(tempClosestIntersection.type!=MISS)
                 {
 
-                    //qDebug()<<"znalazlem przeciecie stowarzyszonego";
+                    //Logger()<<"znalazlem przeciecie stowarzyszonego";
                     DiffuseMaterial* tempMat = (DiffuseMaterial*)tempClosestIntersection.object->GetMaterial();
 
                     //sprawdz czy przeciecie najblizsze wzgledem starej pozycji fotonu stowarzyszonego
                     //jest w odleglosci wiekszej niz promien strumienia od nowej pozycji fotonu wiodacego
                     if( (tempClosestIntersection.point - newStream->leadingPhoton.position).GetLength() > radius)
                     {
-                        //qDebug()<<"foton stowarzyszony zablokowany";
+                        //Logger()<<"foton stowarzyszony zablokowany";
                         continue;
                     }
                     //jesli przeciecie w odleglosci mniejszej niz promieñ strumienia to sprawdz material
                     else if(tempMat->type == DIFFUSE)
                     {
-                        //qDebug()<<"foton stowarzyszony trafil w powierzchnie dyfuzyjna"<<tempMat->diffuse.r<<tempMat->diffuse.g<<tempMat->diffuse.b;
+                        //Logger()<<"foton stowarzyszony trafil w powierzchnie dyfuzyjna"<<tempMat->diffuse.r<<tempMat->diffuse.g<<tempMat->diffuse.b;
 
                         //utworz nowy foton stowarzyszony w znalezionym punkcie przeciecia
                         SinglePhoton newAssociated;
@@ -308,17 +309,17 @@ void StreamPhotonMap::TracePhoton(LightIntensity photonEnergy, const Ray &startR
                         reflectedAssociated.direction = -oldAssociatedToNew.direction;
                         reflectedAssociated.energy = newAssociated.energy*tempMat->diffuse;
                         reflectedAssocPhotons.push_back(reflectedAssociated);
-                        //qDebug()<<"poprzednia energia stowarzyszonego fotonu"<<newAssociated.energy.r<<newAssociated.energy.g<<newAssociated.energy.b;
-                        //qDebug()<<"energia po odbiciu stowarzyszonego fotonu"<<reflectedAssociated.energy.r<<reflectedAssociated.energy.g<<reflectedAssociated.energy.b;
+                        //Logger()<<"poprzednia energia stowarzyszonego fotonu"<<newAssociated.energy.r<<newAssociated.energy.g<<newAssociated.energy.b;
+                        //Logger()<<"energia po odbiciu stowarzyszonego fotonu"<<reflectedAssociated.energy.r<<reflectedAssociated.energy.g<<reflectedAssociated.energy.b;
                         ileAssoc++;
                     }
                     else{
-                        //qDebug()<<"foton stowarzyszony trafil w powierzchnie niedyfuzyjna";
+                        //Logger()<<"foton stowarzyszony trafil w powierzchnie niedyfuzyjna";
                     }
                 }
 
             }
-            //qDebug()<<"wyemitowalem"<<ileAssoc<<"fotonow stowarzyszonych";
+            Logger()<<"wyemitowalem"<<ileAssoc<<"fotonow stowarzyszonych\n";
 
             /*
             if(newStream->associatedPhoton.count())
@@ -352,7 +353,7 @@ void StreamPhotonMap::TracePhoton(LightIntensity photonEnergy, const Ray &startR
 
     }
     else{//jesli nie trafilismy w nic lub blad numeryczny szukania przeciecia
-        //qDebug()<<"pudlo";
+        Logger()<<"pudlo\n";
     }
 }
 

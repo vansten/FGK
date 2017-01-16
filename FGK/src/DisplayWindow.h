@@ -16,7 +16,6 @@ class DisplayWindow : public wxPanel
 public:
 	explicit DisplayWindow(wxWindow* parent, const wxPoint& pos, const wxSize& size);
 
-    //void paintEvent(QPaintEvent *);
 	void paintEvent(wxPaintEvent& evt);
 	void render(wxDC& dc);
 

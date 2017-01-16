@@ -5,6 +5,7 @@
 #include "Camera.h"
 #include "PhotonMap.h"
 #include "StreamPhotonMap.h"
+#include "ConsolePanel.h"
 
 #define BIAS 0.001f
 using namespace std;
@@ -110,7 +111,7 @@ void Camera::RenderScene(Scene* scene, unsigned int ns) {
         }
 
 		m_renderingTime = t.GetElapsedMS();
-		printf("Rendering time: %f", m_renderingTime);
+		Logger() << "Rendering time: " << m_renderingTime << " ms\n";
         img->SaveToFile(renderFileName);
     }
 }
@@ -135,7 +136,7 @@ void Camera::RenderSceneStream(Scene* scene, unsigned int ns, unsigned int m_num
         photonMap.SetRadius(radius);
 
 
-		printf("Generuje mape globalna");
+		Logger() << "Generuje mape globalna\n";
         photonMap.GeneratePhotonMap(scene, m_numEmittedGlobalPhotons, reflections);
 
         // KAUSTYKA
@@ -143,18 +144,18 @@ void Camera::RenderSceneStream(Scene* scene, unsigned int ns, unsigned int m_num
         causticPhotonMap.SetNumAssociatedPhotons(numAssociatedPhotons);
         causticPhotonMap.SetRadius(radius);
 
-		printf("Generuje mape kaustyczna");
+		Logger() << "Generuje mape kaustyczna\n";
         causticPhotonMap.GeneratePhotonMap(scene, m_numEmittedCausticPhotons, 4, true);
 
 		m_renderingTime = t.GetElapsedMS();
-		printf("Rendering time %i ms", m_renderingTime);
+		Logger() << "Rendering time " <<  m_renderingTime << " ms\n";
 
 		t.Restart();
 
-		printf("W scenie jest %i obiektow", scene->geometry.size());
+		Logger() << "W scenie jest " << (int)scene->geometry.size() << " obiektow\n";
         // przed renderingiem usun sciane frontowa ktora sluzyla tylko do odbijania fotonow podczas propagacji aby nie uciekaly ze sceny
         scene->geometry.front()->deleteFrontWall();
-		printf("Zaczynam renderowac");
+		Logger() << "Zaczynam renderowac\n";
 
         //wrong sampling method
         /*
@@ -253,7 +254,7 @@ void Camera::RenderSceneStream(Scene* scene, unsigned int ns, unsigned int m_num
         }
 
 		m_renderingTime = t.GetElapsedMS();
-		printf("Rendering time %i ms", m_renderingTime);
+		Logger() << "Rendering time: " << m_renderingTime << " ms\n";
 
 		char buff[1000];
 		snprintf(buff, sizeof(buff), "spm_%s_%s_%s_%s_%s_%s", std::to_string(ns).c_str(), std::to_string(m_numEmittedGlobalPhotons).c_str(), std::to_string(m_numEmittedCausticPhotons).c_str(), std::to_string(numAssociatedPhotons).c_str(), std::to_string(radius).c_str(), std::to_string(m_renderingTime).c_str());
@@ -311,7 +312,7 @@ void Camera::RenderScene(Scene* scene, unsigned int ns, unsigned int numGlobalMa
         }
 
         m_renderingTime = t.GetElapsedMS();
-		printf("Rendering time %i ms", m_renderingTime);
+		Logger() << "Rendering time: " << m_renderingTime << " ms\n";
 
 		char buff[1000];
 		snprintf(buff, sizeof(buff), "pm_%s_%s_%s_%s", std::to_string(ns).c_str(), std::to_string(numGlobalMapPhotons).c_str(), std::to_string(numCausticMapPhotons).c_str(), std::to_string(m_renderingTime).c_str());
@@ -412,7 +413,7 @@ void Camera::VisualizePhotonMap(Scene *scene, int numPhotons, int maxReflections
         }
 
 		m_renderingTime = t.GetElapsedMS();
-		printf("Rendering time %i ms", m_renderingTime);
+		Logger() << "Rendering time: " << m_renderingTime << " ms\n";
 
 		char buff[1000];
 		snprintf(buff, sizeof(buff), "vpm_%s_%s_%s", std::to_string(numPhotons).c_str(), std::to_string(maxReflections).c_str(), std::to_string(m_renderingTime).c_str());
@@ -526,7 +527,7 @@ void Camera::VisualizeStreamPhotonMap(Scene *scene, int numPhotons, int maxRefle
         }
 
 		m_renderingTime = t.GetElapsedMS();
-		printf("Rendering time %i ms", m_renderingTime);
+		Logger() << "Rendering time: " << m_renderingTime << " ms\n";
 		
 		char buff[1000];
 		snprintf(buff, sizeof(buff), "vspm_%s_%s_%s_%s_%s", std::to_string(numPhotons).c_str(), std::to_string(maxReflections).c_str(), std::to_string(numAssociatedPhotons).c_str(), std::to_string(radius).c_str(), std::to_string(m_renderingTime).c_str());

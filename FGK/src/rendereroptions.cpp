@@ -4,10 +4,6 @@
 
 #define WX_SPINBOX_MAX_SIZE 120
 
-//#include <QtWidgets/QGridLayout>
-//#include <QtWidgets/QLabel>
-//#include <QtWidgets/QSpacerItem>
-
 // -----------------------------------------------------------------------------
 /*
 StreamRendererOptions::StreamRendererOptions(QWidget *parent)

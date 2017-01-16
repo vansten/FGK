@@ -1,4 +1,5 @@
 #include "AreaLight.h"
+#include "../ConsolePanel.h"
 
 AreaLight::AreaLight(Vector3 center, Vector2 size, Color color, Vector3 attenuation, int density) {
     float stepX = size.x/(density);
@@ -11,7 +12,7 @@ AreaLight::AreaLight(Vector3 center, Vector2 size, Color color, Vector3 attenuat
             lights.push_back(p);
         }
     }
-    //qDebug()<<"liczba swiatel punktowych dla swiatla powierzchniowego"<<lights.count();
+    Logger()<<"liczba swiatel punktowych dla swiatla powierzchniowego"<<(int)lights.size();
 	inShadows.resize(lights.size());
 
     this->center = center;

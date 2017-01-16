@@ -6,12 +6,6 @@
 #include <wx/wx.h>
 #endif
 
-//#include <QtWidgets/QWidget>
-//#include <QtWidgets/QStackedWidget>
-//#include <QtWidgets/QLayout>
-//#include <QtWidgets/QComboBox>
-//#include <QtWidgets/QLabel>
-
 #include "rendereroptions.h"
 
 enum RenderingMethod {
@@ -42,13 +36,10 @@ public:
 private:
 	wxChoice*					m_rendererName;
 	wxBoxSizer*					m_rendererOptionsSizer;
-    //QComboBox*                  m_rendererName;
-    //QStackedWidget*             m_rendererOptionsPanel;
     StreamRendererOptions*      m_streamRendererOptions;
     PhotonMapRendererOptions*   m_photonMapRendererOptions;
     StreamVisualizerOptions*    m_streamVisualizerOptions;
     PhotonMapVisualizerOptions* m_photonMapVisualizerOptions;
-    //QLabel*                     m_timeLabel;
 	wxStaticText*				m_timeLabel;
 
 	wxDECLARE_EVENT_TABLE();

@@ -324,7 +324,7 @@ void MainWindow::renderScene(wxCommandEvent& ev)
                                   params.m_maxReflections);
         m_rendererPanel->updateRenderingTime(camera.renderingTime());
     } else {
-        //QMessageBox::warning(this,"Wrong rendering method", "Error");
+		wxMessageBox("Wrong rendering method", "Error");
     }
 
 	display->Refresh();

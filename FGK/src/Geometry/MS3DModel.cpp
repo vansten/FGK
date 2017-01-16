@@ -4,6 +4,7 @@
 #include "Triangle.h"
 #include "Box.h"
 #include <cfloat>
+#include "../ConsolePanel.h"
 
 MS3DModel::MS3DModel()
 {
@@ -72,7 +73,7 @@ void MS3DModel::Load(const char* filename)
 	
 	if(!pf)
 	{
-            //qDebug()<<"no file";
+		Logger() << "No file";
             //		MessageBox(NULL,"Nie mo¿na za³adowaæ pliku", "B³¹d", MB_OK);
 		return;
 	}

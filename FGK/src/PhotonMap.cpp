@@ -2,6 +2,7 @@
 #include <cfloat>
 #include "KDTree.h"
 #include "Lights/AreaLight.h"
+#include "ConsolePanel.h"
 
 #define BIAS 0.001f
 PhotonMap::PhotonMap() {
@@ -64,7 +65,6 @@ void PhotonMap::GeneratePhotons(AmbientLight *light, std::list<Geometry*>* geome
     std::list<Photon*> tempPhotons;
     int emittedPhotons = 0;
 
-    //while(tempPhotons.count()<numPhotons && photons.count()+tempPhotons.count()<maxPhotons) {
     while(emittedPhotons<numPhotons && photons.size()+tempPhotons.size()<maxPhotons) {
     Ray photonRay;
 
@@ -75,7 +75,7 @@ void PhotonMap::GeneratePhotons(AmbientLight *light, std::list<Geometry*>* geome
         TracePhoton(light->color, photonRay, geometry, &tempPhotons, maxReflections);
         emittedPhotons++;
     }
-	printf("Wyemitowalem %i fotonow", emittedPhotons);
+	Logger() << "Wyemitowalem " << emittedPhotons << " fotonow\n";
 
     //scale energy of photons
     float scale;
@@ -94,7 +94,7 @@ void PhotonMap::GeneratePhotons(AmbientLight *light, std::list<Geometry*>* geome
 		photons.push_back(*tempPhotonsIt);
     }
 
-	printf("Mapa fotonowa zawiera %i fotonow (wyemitowane + odbite)", photons.size());
+	Logger() << "Mapa fotonowa zawiera " << (int)photons.size() << " fotonow (wyemitowane + odbite)\n";
 }
 
 
