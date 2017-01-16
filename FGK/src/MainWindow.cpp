@@ -54,6 +54,7 @@ MainWindow::MainWindow(const wxPoint & pos, const wxSize & size) :
 	m_rendererPanel(new RendererPanel(this)),
 	m_consolePanel(new ConsolePanel(this))
 {
+	wxBoxSizer* sizerVeryMain = new wxBoxSizer(wxVERTICAL);
 	wxBoxSizer* sizerMain = new wxBoxSizer(wxHORIZONTAL);
 	wxBoxSizer* sizerPanel = new wxBoxSizer(wxVERTICAL);
 
@@ -70,12 +71,14 @@ MainWindow::MainWindow(const wxPoint & pos, const wxSize & size) :
 
 	sizerMain->Add(sizerPanel, wxSizerFlags(0).Align(wxRIGHT));
 
-	sizerMain->Add(m_consolePanel, wxSizerFlags(0).Align(wxDOWN).Center().Border(wxDirection::wxALL, 10));
-
 	m_image = new Image(512, 512);
 	display->setImage(m_image);
 
-	SetSizerAndFit(sizerMain);
+	sizerVeryMain->Add(sizerMain, wxSizerFlags(0).Align(wxTOP));
+
+	sizerVeryMain->Add(m_consolePanel, wxSizerFlags(1).Align(wxTOP).Expand());
+
+	SetSizerAndFit(sizerVeryMain);
 
 	SetBackgroundColour(*wxWHITE);
 

@@ -14,6 +14,7 @@ Texture::Texture(const char* name) {
 
 Texture::Texture(unsigned int w, unsigned int h) {
 	image = new wxImage(w, h);
+	image->AddHandler(new wxPNGHandler());
     width = w;
     height = h;
 }
@@ -66,8 +67,9 @@ void Texture::SetPixel(unsigned x, unsigned y, Color color) {
 	image->SetRGB(x, y, color.r * 255, color.g * 255, color.b * 255);
 }
 
-void Texture::SaveToFile(const char*  filename) {
-	if(!image->SaveFile(wxString(filename)))
+void Texture::SaveToFile(const char*  filename) 
+{
+	if(!image->SaveFile(wxString(filename), wxBITMAP_TYPE_PNG))
 	{
 		printf("Cannot save image to file %s", filename);
 	}

@@ -6,7 +6,7 @@
 #include <wx/wx.h>
 #endif
 
-class ConsolePanel : public wxPanel
+class ConsolePanel : public wxTextCtrl
 {
 protected:
 	static ConsolePanel* m_instance;
@@ -15,17 +15,10 @@ public:
 	static ConsolePanel* Get();
 
 public:
-	explicit ConsolePanel(wxWindow* parent = nullptr);
+	explicit ConsolePanel(wxWindow* parent = nullptr, wxStandardID id = wxID_ANY);
 	~ConsolePanel();
 
-	ConsolePanel& operator<<(std::string log);
-	ConsolePanel& operator<<(float floatValue);
-	ConsolePanel& operator<<(double doubleValue);
-	ConsolePanel& operator<<(bool boolValue);
-	ConsolePanel& operator<<(int intValue);
-
 private:
-	wxStaticText* m_logText;
 };
 
 ConsolePanel& Logger();

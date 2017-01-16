@@ -6,71 +6,35 @@ ConsolePanel* ConsolePanel::m_instance = nullptr;
 
 ConsolePanel* ConsolePanel::Get()
 {
-	if(!m_instance)
-	{
-		m_instance = new ConsolePanel();
-	}
+	//if(!m_instance)
+	//{
+		//m_instance = new ConsolePanel();
+		// a UI control cannot be a singleton this way as it cannot be just spawned without any parent, this would cause an assertion error probably and a memory leak too
+		
+	//}
+	assert(m_instance != nullptr);
 	return m_instance;
 }
 
-ConsolePanel::ConsolePanel(wxWindow* parent) :
-	wxPanel(parent),
-	m_logText(new wxStaticText(this, WX_ID_LOG_TEXT, ""))
+ConsolePanel::ConsolePanel(wxWindow* parent, wxStandardID id)
 {
-	if(m_instance)
-	{
-		delete this;
-		return;
-	}
+	Create(parent, id, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxTE_MULTILINE | wxTE_READONLY | wxTE_WORDWRAP | wxTE_LEFT | wxUSE_MARKUP);
+	assert(m_instance == nullptr);
 	m_instance = this;
 
-	m_logText->SetFont(wxFont(10, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD));
-	wxBoxSizer* sizer = new wxBoxSizer(wxVERTICAL);
-	sizer->Add(m_logText, wxSizerFlags().Expand());
+	SetMinSize(wxSize(0, 128));
+	SetBackgroundColour(wxColour(32, 32, 32));
+	SetForegroundColour(wxColour(255, 255, 255));
+	SetFont(wxFont(10, wxFontFamily::wxFONTFAMILY_MODERN, wxFontStyle::wxFONTSTYLE_NORMAL, wxFontWeight::wxFONTWEIGHT_NORMAL, false, wxEmptyString, wxFONTENCODING_SYSTEM));
+	SetEditable(false);
 }
 
 ConsolePanel::~ConsolePanel()
 {
-	if(m_logText)
-	{
-		delete m_logText;
-		m_logText = 0;
-	}
-
 	if(m_instance && m_instance == this)
 	{
-		m_instance = 0;
+		m_instance = nullptr;
 	}
-}
-
-ConsolePanel& ConsolePanel::operator<<(std::string log)
-{
-	if(m_logText)
-	{
-		m_logText->SetLabel(m_logText->GetLabel() + wxString(log.c_str()));
-	}
-
-	return *this;
-}
-
-ConsolePanel& ConsolePanel::operator<<(float floatValue)
-{
-	return operator<<(std::to_string(floatValue));
-}
-
-ConsolePanel& ConsolePanel::operator<<(double doubleValue)
-{
-	return operator<<(std::to_string(doubleValue));
-}
-
-ConsolePanel& ConsolePanel::operator<<(bool boolValue)
-{
-	return operator<<(std::to_string(boolValue));
-}
-
-ConsolePanel& ConsolePanel::operator<<(int intValue)
-{
-	return operator<<(std::to_string(intValue));
 }
 
 ConsolePanel& Logger()

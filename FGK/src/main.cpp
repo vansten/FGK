@@ -39,6 +39,5 @@ bool MyApp::OnInit()
 	srand(time(NULL));
 	MainWindow* window = new MainWindow(wxPoint(0, 0), wxSize(1024, 600));
 	window->Show(true);
-	Logger() << "App start";
 	return true;
 }
