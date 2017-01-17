@@ -48,7 +48,7 @@ EVT_BUTTON(WX_ID_RENDERBUTTON, MainWindow::renderScene)
 wxEND_EVENT_TABLE()
 
 MainWindow::MainWindow(const wxPoint & pos, const wxSize & size) :
-	wxFrame(NULL, wxID_ANY, "GuzekRenderer", pos, size),
+	wxFrame(NULL, wxID_ANY, "GNRenderer (© by K.Guzek and P. Napieralski, Institute of Information Technology, Lodz University of Technology)", pos, size),
 	display(new DisplayWindow(this, wxPoint(20, 20), wxSize(512, 512))),
 	renderButton(new wxButton(this, WX_ID_RENDERBUTTON, "Render", wxDefaultPosition, wxSize(200, 60))),
 	m_rendererPanel(new RendererPanel(this)),

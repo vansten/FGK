@@ -99,6 +99,9 @@
       <SubSystem>Windows</SubSystem>
       <AdditionalDependencies>wxbase31u.lib;wxbase31u_net.lib;wxbase31u_xml.lib;wxbase31ud.lib;wxbase31ud_net.lib;wxbase31ud_xml.lib;wxexpat.lib;wxexpatd.lib;wxjpeg.lib;wxjpegd.lib;wxmsw31u_adv.lib;wxmsw31u_aui.lib;wxmsw31u_core.lib;wxmsw31u_gl.lib;wxmsw31u_html.lib;wxmsw31u_media.lib;wxmsw31u_propgrid.lib;wxmsw31ud_qa.lib;ThirdParty\wxWidgets-3.1.0\lib\wxmsw31ud_ribbon.lib;ThirdParty\wxWidgets-3.1.0\lib\wxmsw31ud_richtext.lib;ThirdParty\wxWidgets-3.1.0\lib\wxmsw31ud_stc.lib;ThirdParty\wxWidgets-3.1.0\lib\wxmsw31ud_webview.lib;ThirdParty\wxWidgets-3.1.0\lib\wxmsw31ud_xrc.lib;ThirdParty\wxWidgets-3.1.0\lib\wxpng.lib;ThirdParty\wxWidgets-3.1.0\lib\wxpngd.lib;ThirdParty\wxWidgets-3.1.0\lib\wxregexu.lib;ThirdParty\wxWidgets-3.1.0\lib\wxregexud.lib;wxscintilla.lib;wxscintillad.lib;wxtiff.lib;wxtiffd.lib;wxzlib.lib;wxzlibd.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>for /R "$(ProjectDir)ThirdParty" %%f in ("*.dll") do copy %%f "$(OutDir)%%~nf.dll</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -111,6 +114,9 @@
       <SubSystem>Windows</SubSystem>
       <AdditionalDependencies>wxbase31u.lib;wxbase31u_net.lib;wxbase31u_xml.lib;wxbase31ud.lib;wxbase31ud_net.lib;wxbase31ud_xml.lib;wxexpat.lib;wxexpatd.lib;wxjpeg.lib;wxjpegd.lib;wxmsw31u_adv.lib;wxmsw31u_aui.lib;wxmsw31u_core.lib;wxmsw31u_gl.lib;wxmsw31u_html.lib;wxmsw31u_media.lib;wxmsw31u_propgrid.lib;wxmsw31ud_qa.lib;ThirdParty\wxWidgets-3.1.0\lib\wxmsw31ud_ribbon.lib;ThirdParty\wxWidgets-3.1.0\lib\wxmsw31ud_richtext.lib;ThirdParty\wxWidgets-3.1.0\lib\wxmsw31ud_stc.lib;ThirdParty\wxWidgets-3.1.0\lib\wxmsw31ud_webview.lib;ThirdParty\wxWidgets-3.1.0\lib\wxmsw31ud_xrc.lib;ThirdParty\wxWidgets-3.1.0\lib\wxpng.lib;ThirdParty\wxWidgets-3.1.0\lib\wxpngd.lib;ThirdParty\wxWidgets-3.1.0\lib\wxregexu.lib;ThirdParty\wxWidgets-3.1.0\lib\wxregexud.lib;wxscintilla.lib;wxscintillad.lib;wxtiff.lib;wxtiffd.lib;wxzlib.lib;wxzlibd.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>for /R "$(ProjectDir)ThirdParty" %%f in ("*.dll") do copy %%f "$(OutDir)%%~nf.dll</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -128,6 +134,9 @@
       <SubSystem>Windows</SubSystem>
       <AdditionalDependencies>wxbase31u.lib;wxbase31u_net.lib;wxbase31u_xml.lib;wxbase31ud.lib;wxbase31ud_net.lib;wxbase31ud_xml.lib;wxexpat.lib;wxexpatd.lib;wxjpeg.lib;wxjpegd.lib;wxmsw31u_adv.lib;wxmsw31u_aui.lib;wxmsw31u_core.lib;wxmsw31u_gl.lib;wxmsw31u_html.lib;wxmsw31u_media.lib;wxmsw31u_propgrid.lib;wxmsw31ud_qa.lib;ThirdParty\wxWidgets-3.1.0\lib\wxmsw31ud_ribbon.lib;ThirdParty\wxWidgets-3.1.0\lib\wxmsw31ud_richtext.lib;ThirdParty\wxWidgets-3.1.0\lib\wxmsw31ud_stc.lib;ThirdParty\wxWidgets-3.1.0\lib\wxmsw31ud_webview.lib;ThirdParty\wxWidgets-3.1.0\lib\wxmsw31ud_xrc.lib;ThirdParty\wxWidgets-3.1.0\lib\wxpng.lib;ThirdParty\wxWidgets-3.1.0\lib\wxpngd.lib;ThirdParty\wxWidgets-3.1.0\lib\wxregexu.lib;ThirdParty\wxWidgets-3.1.0\lib\wxregexud.lib;wxscintilla.lib;wxscintillad.lib;wxtiff.lib;wxtiffd.lib;wxzlib.lib;wxzlibd.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>for /R "$(ProjectDir)ThirdParty" %%f in ("*.dll") do copy %%f "$(OutDir)%%~nf.dll</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -145,6 +154,9 @@
       <SubSystem>Windows</SubSystem>
       <AdditionalDependencies>wxbase31u.lib;wxbase31u_net.lib;wxbase31u_xml.lib;wxbase31ud.lib;wxbase31ud_net.lib;wxbase31ud_xml.lib;wxexpat.lib;wxexpatd.lib;wxjpeg.lib;wxjpegd.lib;wxmsw31u_adv.lib;wxmsw31u_aui.lib;wxmsw31u_core.lib;wxmsw31u_gl.lib;wxmsw31u_html.lib;wxmsw31u_media.lib;wxmsw31u_propgrid.lib;wxmsw31ud_qa.lib;ThirdParty\wxWidgets-3.1.0\lib\wxmsw31ud_ribbon.lib;ThirdParty\wxWidgets-3.1.0\lib\wxmsw31ud_richtext.lib;ThirdParty\wxWidgets-3.1.0\lib\wxmsw31ud_stc.lib;ThirdParty\wxWidgets-3.1.0\lib\wxmsw31ud_webview.lib;ThirdParty\wxWidgets-3.1.0\lib\wxmsw31ud_xrc.lib;ThirdParty\wxWidgets-3.1.0\lib\wxpng.lib;ThirdParty\wxWidgets-3.1.0\lib\wxpngd.lib;ThirdParty\wxWidgets-3.1.0\lib\wxregexu.lib;ThirdParty\wxWidgets-3.1.0\lib\wxregexud.lib;wxscintilla.lib;wxscintillad.lib;wxtiff.lib;wxtiffd.lib;wxzlib.lib;wxzlibd.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>for /R "$(ProjectDir)ThirdParty" %%f in ("*.dll") do copy %%f "$(OutDir)%%~nf.dll</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\ConsolePanel.cpp" />
